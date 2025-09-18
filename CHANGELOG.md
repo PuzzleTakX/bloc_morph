@@ -14,7 +14,7 @@ A powerful and flexible Flutter package for managing UI states with the Bloc pat
 
 ## 📜 Changelog
 
-### [0.1.1] - 2025-Sep-18
+### [0.1.2] - 2025-Sep-18
 - Initial Commit
 
 <div style="display: flex; justify-content: space-between;">
@@ -41,7 +41,7 @@ Add `bloc_morph` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  bloc_morph: ^0.1.1
+  bloc_morph: ^0.1.2
 ```
 
 Then, run:

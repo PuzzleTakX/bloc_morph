@@ -11,6 +11,20 @@ A powerful and flexible Flutter package for managing UI states with the Bloc pat
 ![Flutter Version](https://img.shields.io/badge/Flutter-%3E%3D3.0.0-blue?style=flat-square)
 ![Dart Version](https://img.shields.io/badge/Dart-%3E%3D2.17.0%20%3C4.0.0-blue?style=flat-square)
 
+### Example Ease
+ ```dart
+ BlocMorph<MyBloc, MyState, MyData>(
+   builder: (data) => Text(data?.toString() ?? 'No Data'),
+   errorBuilder: (bloc, error) => Text('Error: $error'),
+   pagination: false,
+   errorMessage: 'Custom error message',
+   loadingWidget: CircularProgressIndicator(color: Colors.blue),
+   tryAgainButton: (bloc) => ElevatedButton(
+     onPressed: (){bloc.yourFuc(};
+     child: Text('Retry'),
+   ),
+ )
+ ```
 
 <div style="display: flex; justify-content: space-between;">
 <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/tree.jpg?raw=true" alt="image_demo" width="260" height="600">
@@ -34,7 +48,7 @@ Add `bloc_morph` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  bloc_morph: ^0.1.1
+  bloc_morph: ^0.1.2
 ```
 
 Then, run:
@@ -56,6 +70,7 @@ dependencies:
 ## Usage
 
 `BlocMorph` is designed to work with any `Bloc` or `Cubit` from the `flutter_bloc` package. It handles various UI states (`init`, `loading`, `empty`, `error`, `networkError`, `next`) and provides smooth transitions between them.
+
 
 ### Example
 
