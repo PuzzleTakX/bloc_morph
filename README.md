@@ -13,17 +13,16 @@ A powerful and flexible Flutter package for managing UI states with the Bloc pat
 
 ### Example Ease
  ```dart
- BlocMorph<MyBloc, MyState, MyDataState>(
-   builder: (MyDataState data) => Text(data?.toString() ?? 'No Data'),
-   errorBuilder: (bloc, error) => Text('Error: $error'),
-   pagination: false,
-   errorMessage: 'Custom error message',
-   loadingWidget: CircularProgressIndicator(color: Colors.blue),
-   tryAgainButton: (MyBloc bloc) => ElevatedButton(
-     onPressed: (){bloc.yourFuc(};
-     child: Text('Retry'),
-   ),
- )
+BlocMorph<BlocCubit,BlocState,BlocSampleState>(
+initial: Container(color: Colors.grey,),
+empty: Container(color: Colors.orange,),
+errorBuilder: (bloc, data) => Container(color: Colors.red,),
+netWorkError: (bloc) => Container(color: Colors.blue,),
+loading: CircularProgressIndicator(),
+builder: (data) {
+return _content(data!.data!);
+},
+)
  ```
 
 <div style="display: flex; justify-content: space-between;">
@@ -48,7 +47,7 @@ Add `bloc_morph` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  bloc_morph: ^0.1.2
+  bloc_morph: ^0.1.3
 ```
 
 Then, run:
