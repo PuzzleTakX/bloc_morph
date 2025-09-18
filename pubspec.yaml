@@ -1,23 +1,25 @@
 name: bloc_morph
-description: "BlocMorph is a Flutter widget for elegant state management with Bloc.    It smoothly animates transitions between loading, error, empty, network error, and content states,    providing a beautiful and user-friendly UI experience."
+description: "BlocMorph is a Flutter widget for elegant state management with Bloc. It smoothly animates transitions between loading, error, empty, network error, and content states, providing a beautiful and user-friendly UI experience."
 version: 0.0.1
 homepage: https://github.com/PuzzleTakX/bloc_morph.git
-documentation: https://github.com/PuzzleTakX/bloc_morph.git
+repository: https://github.com/PuzzleTakX/flutter_protector
+issue_tracker: https://github.com/PuzzleTakX/bloc_morph/issues
+documentation: https://github.com/PuzzleTakX/bloc_morph/blob/master/README.md
+license: https://github.com/PuzzleTakX/bloc_morph/blob/master/LICENSE
 
 environment:
-  sdk: ^3.7.2
-  flutter: ">=1.17.0"
+  sdk: ">=2.17.0 <3.0.0"
+  flutter: ">=2.17.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_bloc: ^9.1.1
+  flutter_bloc: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
-
+  flutter_lints: ^2.0.0
 
 flutter:
-
+  uses-material-design: true
