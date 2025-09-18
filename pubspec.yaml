@@ -8,8 +8,8 @@ documentation: https://github.com/PuzzleTakX/bloc_morph/blob/master/README.md
 license: https://github.com/PuzzleTakX/bloc_morph/blob/master/LICENSE
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
-  flutter: ">=2.17.0 <3.0.0"
+  sdk: '>=2.17.0 <4.0.0'
+  flutter: ">=1.17.0"
 
 dependencies:
   flutter:
