@@ -289,4 +289,4 @@ For questions or feedback, feel free to open an issue on the [GitHub repository]
 
 ---
 
-<p align="center">Built with ❤️ for the Flutter community</p>
+<p align="center">Built with ❤️ for the PuzzleTakX</p>
