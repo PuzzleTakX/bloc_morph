@@ -13,13 +13,13 @@ A powerful and flexible Flutter package for managing UI states with the Bloc pat
 
 ### Example Ease
  ```dart
- BlocMorph<MyBloc, MyState, MyData>(
-   builder: (data) => Text(data?.toString() ?? 'No Data'),
+ BlocMorph<MyBloc, MyState, MyDataState>(
+   builder: (MyDataState data) => Text(data?.toString() ?? 'No Data'),
    errorBuilder: (bloc, error) => Text('Error: $error'),
    pagination: false,
    errorMessage: 'Custom error message',
    loadingWidget: CircularProgressIndicator(color: Colors.blue),
-   tryAgainButton: (bloc) => ElevatedButton(
+   tryAgainButton: (MyBloc bloc) => ElevatedButton(
      onPressed: (){bloc.yourFuc(};
      child: Text('Retry'),
    ),
