@@ -33,6 +33,8 @@ A powerful and flexible Flutter package for managing UI states with the Bloc pat
 - **Multi-language Support**: Configurable messages and text directions for global compatibility.
 - **Extensible**: Allows custom transition animations and fully replaceable default widgets.
 
+- **Your dependency on "flutter_bloc" should have a version constraint.
+
 ## Installation
 
 Add `bloc_morph` to your `pubspec.yaml`:
