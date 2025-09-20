@@ -6,10 +6,22 @@
 
 A powerful and flexible Flutter package for managing UI states with the Bloc pattern, featuring smooth animations and highly customizable widgets. `BlocMorph` simplifies handling various UI states like loading, error, empty, and network issues, while providing seamless transitions and a polished user experience.
 
-![Pub Version](https://img.shields.io/pub/v/bloc_morph?color=blue&style=flat-square)
-![License](https://img.shields.io/github/license/PuzzleTakX/bloc_morph?color=green&style=flat-square)
-![Flutter Version](https://img.shields.io/badge/Flutter-%3E%3D3.0.0-blue?style=flat-square)
-![Dart Version](https://img.shields.io/badge/Dart-%3E%3D2.17.0%20%3C4.0.0-blue?style=flat-square)
+[![Pub Version](https://img.shields.io/pub/v/bloc_morph?color=blue&style=flat-square)](https://pub.dev/packages/bloc_morph)
+[![License](https://img.shields.io/github/license/PuzzleTakX/bloc_morph?color=green&style=flat-square)](https://pub.dev/packages/bloc_morph)
+[![Flutter Version](https://img.shields.io/badge/Flutter-%3E%3D3.0.0-blue?style=flat-square)](https://pub.dev/packages/bloc_morph)
+[![Dart Version](https://img.shields.io/badge/Dart-%3E%3D2.17.0%20%3C4.0.0-blue?style=flat-square)](https://pub.dev/packages/bloc_morph)
+
+# Demo Comparison
+
+Here is a visual comparison of different screens (square format):
+
+| Comparison 1 | Comparison 2 |
+|--------------|--------------|
+| <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/1.jpg?raw=true" alt="Screen 1" width="300" height="300"> | <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/2.jpg?raw=true" alt="Screen 2" width="300" height="300"> |
+| <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/3.jpg?raw=true" alt="Screen 3" width="300" height="300"> | <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/4.jpg?raw=true" alt="Screen 4" width="300" height="300"> |
+
+*Left column vs Right column comparison.*
+
 
 ### Example Ease
  ```dart
@@ -47,7 +59,7 @@ Add `bloc_morph` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  bloc_morph: ^0.2.0
+  bloc_morph: ^0.1.4
 ```
 
 Then, run:

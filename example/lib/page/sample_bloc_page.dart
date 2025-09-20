@@ -38,12 +38,13 @@ class _SampleBlocPageState extends State<SampleBlocPage> {
             ),
           ],
         ),
-        body: BlocMorph<MyBloc, MyState, DataLoadState>(
-          platformStyle: PlatformStyle.cupertino, // UI style for the platform
-          disableAnimation: false, // Enable/disable animation
+        body: BlocMorph<MyBloc,MyState,DataLoadState>(
+          loading: Container(),
+          errorBuilder: (bloc, error) => Container(),
+          empty: Container(),
+          initial: Container(),
           builder: (data) {
-            // Display main content when data is loaded
-            return _content(data!.data!);
+            return _content(data!.data!); // response
           },
         ),
       ),
