@@ -1,7 +1,7 @@
 
 
-import 'package:example/page/sample_page.dart';
-import 'package:example/page/sample_with_public_key_page.dart';
+import 'package:example/page/sample_cubit_page.dart';
+import 'package:example/page/sample_bloc_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -29,20 +29,19 @@ class HomePage extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => SamplePage()),
+                    MaterialPageRoute(builder: (_) => SampleCubitPage()),
                   );
                 },
-                child: const Text("Sample1"),
+                child: const Text("Sample Cubit"),
               ),
-              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => SampleWithRequestKeyPage()),
+                    MaterialPageRoute(builder: (_) => SampleBlocPage()),
                   );
                 },
-                child: const Text("Sample With RequestKey"),
+                child: const Text("Sample Bloc"),
               ),
             ],
           ),

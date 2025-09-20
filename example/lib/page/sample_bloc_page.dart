@@ -1,43 +1,56 @@
-
-
 import 'package:bloc_morph/bloc_morph.dart';
-import 'package:example/bloc/bloc_cubit.dart';
 import 'package:example/bloc/item_image.dart';
+import 'package:example/bloc/my_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SamplePage extends StatefulWidget {
-  const SamplePage({super.key});
+/// Sample page to display data using BLoC and BlocMorph
+class SampleBlocPage extends StatefulWidget {
+  const SampleBlocPage({super.key});
 
   @override
-  State<SamplePage> createState() => _SamplePageState();
+  State<SampleBlocPage> createState() => _SampleBlocPageState();
 }
 
-class _SamplePageState extends State<SamplePage> {
+class _SampleBlocPageState extends State<SampleBlocPage> {
 
   @override
   void initState() {
     super.initState();
-    context.read<BlocCubit>().sample1();
+    // Fetch data from MyBloc when the page initializes
+    context.read<MyBloc>().fetchData();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Sample1'),
-      actions: [
-        IconButton(onPressed: (){context.read<BlocCubit>().sample1();}, icon: Icon(Icons.refresh))
-      ],
-      ),
-      body: BlocMorph<BlocCubit,BlocState,BlocSampleState>(
-        disableAnimation: false,
-        builder: (data) {
-          return _content(data!.data!);
-        },
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Sample Bloc'),
+          actions: [
+            // Refresh button to fetch data again
+            IconButton(
+              onPressed: () {
+                context.read<MyBloc>().fetchData();
+              },
+              icon: Icon(Icons.refresh),
+            ),
+          ],
+        ),
+        body: BlocMorph<MyBloc, MyState, DataLoadState>(
+          platformStyle: PlatformStyle.cupertino, // UI style for the platform
+          disableAnimation: false, // Enable/disable animation
+          builder: (data) {
+            // Display main content when data is loaded
+            return _content(data!.data!);
+          },
+        ),
       ),
     );
   }
 
+  /// Builds a list widget displaying image items
   Widget _content(List<ImageItem> data) {
     return ListView.builder(
       padding: const EdgeInsets.all(16),
@@ -53,6 +66,7 @@ class _SamplePageState extends State<SamplePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Display image with rounded corners
               ClipRRect(
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
                 child: Image.network(
@@ -67,6 +81,7 @@ class _SamplePageState extends State<SamplePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Display item title
                     Text(
                       item.title,
                       style: const TextStyle(
@@ -75,6 +90,7 @@ class _SamplePageState extends State<SamplePage> {
                       ),
                     ),
                     const SizedBox(height: 6),
+                    // Display item description
                     Text(
                       item.description,
                       style: TextStyle(
@@ -91,5 +107,4 @@ class _SamplePageState extends State<SamplePage> {
       },
     );
   }
-
 }

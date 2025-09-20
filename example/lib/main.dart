@@ -1,4 +1,5 @@
-import 'package:example/bloc/bloc_cubit.dart';
+import 'package:example/bloc/my_bloc.dart';
+import 'package:example/cubit/bloc_cubit.dart';
 import 'package:example/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +14,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
-      BlocProvider(create: (context) => BlocCubit(),)
+      BlocProvider(create: (context) => BlocCubit(),),
+      BlocProvider(create: (context) => MyBloc(),)
     ],
         child: MaterialApp(
           title: 'Flutter Morph',

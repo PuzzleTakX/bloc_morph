@@ -1,65 +1,55 @@
-
-
 import 'package:bloc_morph/bloc_morph.dart';
-import 'package:example/bloc/bloc_cubit.dart';
 import 'package:example/bloc/item_image.dart';
+import 'package:example/cubit/bloc_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SampleWithRequestKeyPage extends StatefulWidget {
-  const SampleWithRequestKeyPage({super.key});
+/// Sample page demonstrating usage of a Cubit with BlocMorph
+class SampleCubitPage extends StatefulWidget {
+  const SampleCubitPage({super.key});
 
   @override
-  State<SampleWithRequestKeyPage> createState() => _SampleWithRequestKeyPageState();
+  State<SampleCubitPage> createState() => _SampleCubitPageState();
 }
 
-class _SampleWithRequestKeyPageState extends State<SampleWithRequestKeyPage> {
+class _SampleCubitPageState extends State<SampleCubitPage> {
 
   @override
   void initState() {
     super.initState();
-    context.read<BlocCubit>().sampleWithRequestKey('key1');
-    context.read<BlocCubit>().sampleWithRequestKey('key2');
+    // Fetch data from BlocCubit when the page initializes
+    context.read<BlocCubit>().fetchData();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Sample With RequestKey'),
-        actions: [
-          IconButton(onPressed: (){context.read<BlocCubit>().sampleWithRequestKey('key1');}, icon: Icon(Icons.one_k)),
-          IconButton(onPressed: (){context.read<BlocCubit>().sampleWithRequestKey('key2');}, icon: Icon(Icons.two_k))
-        ],
-      ),
-      body: Column(
-        children: [
-          Expanded(child: Container(
-            padding: EdgeInsets.all(4),
-            color: Colors.amber.withAlpha(50),
-            child: BlocMorph<BlocCubit,BlocState,BlocSampleWithRequestKeyState>(
-              requestKey: 'key1',
-              disableAnimation: false,
-              builder: (data) {
-                return _content(data!.data!);
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Sample Cubit'),
+          actions: [
+            // Refresh button to fetch data again
+            IconButton(
+              onPressed: () {
+                context.read<BlocCubit>().fetchData();
               },
+              icon: Icon(Icons.refresh),
             ),
-          )),
-          Expanded(child: Container(
-            padding: EdgeInsets.all(4),
-            color: Colors.grey.withAlpha(50),
-            child: BlocMorph<BlocCubit,BlocState,BlocSampleWithRequestKeyState>(
-              requestKey: 'key2',
-              disableAnimation: false,
-              builder: (data) {
-                return _content(data!.data!);
-              },
-            ),
-          )),
-        ],
+          ],
+        ),
+        body: BlocMorph<BlocCubit, BlocState, BlocDataState>(
+          disableAnimation: false, // Enable or disable animation
+          builder: (data) {
+            // Build main content when data is loaded
+            return _content(data!.data!);
+          },
+        ),
       ),
     );
   }
 
+  /// Builds a scrollable list of ImageItem cards
   Widget _content(List<ImageItem> data) {
     return ListView.builder(
       padding: const EdgeInsets.all(16),
@@ -75,11 +65,12 @@ class _SampleWithRequestKeyPageState extends State<SampleWithRequestKeyPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Display image with rounded top corners
               ClipRRect(
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
                 child: Image.network(
                   item.imageUrl,
-                  height: 150,
+                  height: 200,
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
@@ -89,6 +80,7 @@ class _SampleWithRequestKeyPageState extends State<SampleWithRequestKeyPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Display item title
                     Text(
                       item.title,
                       style: const TextStyle(
@@ -97,6 +89,7 @@ class _SampleWithRequestKeyPageState extends State<SampleWithRequestKeyPage> {
                       ),
                     ),
                     const SizedBox(height: 6),
+                    // Display item description
                     Text(
                       item.description,
                       style: TextStyle(
@@ -113,5 +106,4 @@ class _SampleWithRequestKeyPageState extends State<SampleWithRequestKeyPage> {
       },
     );
   }
-
 }
