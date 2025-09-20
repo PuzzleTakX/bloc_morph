@@ -14,134 +14,34 @@ A powerful and flexible Flutter package for managing UI states with the Bloc pat
 
 ## 📜 Changelog
 
+# Changelog
+
+All notable changes to the `BlocMorph` widget will be documented in this file.
+
+## [0.2.0] - 2025-Sep-20
+
+### Added
+- **Type Safety with `MorphState` Interface**: Introduced a `MorphState` interface to enforce type-safe access to `requestKey`, `typeState`, and `error` properties, eliminating unsafe `dynamic` casting.
+- **Accessibility Support**: Added `Semantics` widgets to default state widgets (`_buildErrorWidget`, `_buildEmptyWidget`, `_buildInitWidget`, `_buildNetworkErrorWidget`) to support screen readers and improve accessibility. Included `textScaler` for text scaling based on device accessibility settings.
+- **Platform Style Support**: Added `PlatformStyle` enum (`material`, `cupertino`) to allow default widgets to adapt to Material or Cupertino design systems based on the `platformStyle` parameter.
+- **Customizable Error Padding and Icon Size**: Added `errorPadding` and `errorIconSize` parameters to allow customization of padding and icon size in error and network error states.
+- **Comprehensive Documentation**: Added detailed DartDoc comments for all constructor parameters of `BlocMorph`, explaining their purpose, default behavior, and usage.
+
+### Changed
+- **Refactored `BlocConsumer` Listener Logic**: Simplified the listener logic in `_BlocMorphState` to reduce code duplication and improve readability by consolidating the `if` and `else` branches for state handling.
+- **Optimized `AnimatedSwitcher` Usage**: Moved `AnimatedSwitcher` logic into `_buildContent` to apply animations only when `disableAnimation` is `false`, reducing unnecessary widget tree complexity.
+- **Improved Key Management**: Ensured all branches in `_buildContent` use unique `ValueKey`s for `KeyedSubtree` widgets to prevent animation glitches in `AnimatedSwitcher`.
+- **Enhanced Error Handling**: Updated `errorBuilder` to receive the actual error message from the `MorphState.error` field instead of an empty string, improving flexibility for custom error displays.
+- **Renamed `_buildErrorWidgetIOS`**: Renamed to `_buildErrorWidget` for clarity and consistency, as it now supports both Material and Cupertino styles.
+- **Fixed Documentation Example**: Corrected a syntax error in the example code in the `BlocMorph` documentation, fixing the `onPressed` callback (`yourFuc` to `yourFunction`) and ensuring proper syntax.
+
+### Fixed
+- **Null-Safety for Callbacks**: Added null-safety checks for optional callbacks (`onNext`, `onState`, `onTry`) using the `?.` operator to prevent runtime null pointer exceptions.
+- **Animation Key Issues**: Fixed potential animation glitches by ensuring all state widgets in `_buildContent` have unique keys, particularly for pagination and non-pagination cases.
+
+
 ### [0.1.4] - 2025-Sep-18
 - Initial Commit
 
-<div style="display: flex; justify-content: space-between;">
-<img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/tree.jpg?raw=true" alt="image_demo" width="260" height="600">
-<img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/two.jpg?raw=true" alt="image_demo" width="260" height="600">
-<img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/one.jpg?raw=true" alt="image_demo" width="260" height="600">
-</div>
-
-## Features
-
-- **Smooth Animations**: Built-in transitions with scale (0.9 to 1) and fade effects for seamless state changes.
-- **Highly Customizable**: Customize icons, messages, colors, text styles, and retry buttons for all UI states.
-- **Bloc Integration**: Works seamlessly with `flutter_bloc` to manage state changes efficiently.
-- **Pagination Support**: Handles paginated data with ease, perfect for lists and infinite scrolling.
-- **Lightweight and Performant**: Optimized for performance with minimal dependencies.
-- **Multi-language Support**: Configurable messages and text directions for global compatibility.
-- **Extensible**: Allows custom transition animations and fully replaceable default widgets.
-
-- **Your dependency on "flutter_bloc" should have a version constraint.
-
-## Installation
-
-Add `bloc_morph` to your `pubspec.yaml`:
-
-```yaml
-dependencies:
-  bloc_morph: ^0.1.4
-```
-
-Then, run:
-
-```bash
-flutter pub get
-```
-
-Alternatively, if you want to use the latest version from the GitHub repository:
-
-```yaml
-dependencies:
-  bloc_morph:
-    git:
-      url: https://github.com/PuzzleTakX/bloc_morph.git
-      ref: master
-```
-
-## Usage
-
-`BlocMorph` is designed to work with any `Bloc` or `Cubit` from the `flutter_bloc` package. It handles various UI states (`init`, `loading`, `empty`, `error`, `networkError`, `next`) and provides smooth transitions between them.
-
-
-### Available States
-
-`BlocMorph` supports the following UI states, each with customizable widgets:
-
-- **init**: Initial state before loading starts.
-- **loading**: Displays while data is being fetched.
-- **empty**: Shown when no data is available.
-- **error**: Displayed for general errors.
-- **networkError**: Shown for network-related issues.
-- **next**: Renders the main content when data is available.
-
-### Customization Options
-
-You can customize the appearance and behavior of each state:
-
-- **Messages**: Set custom messages for `error`, `empty`, `init`, and `networkError` states.
-- **Icons**: Provide custom icons for each state (e.g., `errorIcon`, `emptyIcon`).
-- **Colors**: Define colors for icons and text (e.g., `errorColor`, `networkErrorColor`).
-- **Text Styles**: Customize text styles for messages (e.g., `errorTextStyle`, `emptyTextStyle`).
-- **Retry Button**: Provide a custom retry button using `tryAgainButton`.
-- **Animations**: Adjust animation duration, curves, or provide a custom `transitionBuilder`.
-
-Example with customizations:
-
-```dart
-BlocMorph<MyBloc, MyState, MyData>(
-  builder: (data) => Text(data?.toString() ?? 'No Data'),
-  errorMessage: 'Custom error message',
-  errorIcon: Icons.error_outline,
-  errorColor: Colors.redAccent,
-  tryAgainButton: (onTry) => ElevatedButton(
-    onPressed: onTry,
-    style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-    child: const Text('Retry', style: TextStyle(color: Colors.white)),
-  ),
-  animationDuration: const Duration(milliseconds: 600),
-  transitionBuilder: (child, animation) => SlideTransition(
-    position: Tween<Offset>(
-      begin: const Offset(0, 0.1),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: animation, curve: Curves.easeInOut)),
-    child: child,
-  ),
-)
-```
-
-## Project Structure
-
-The `BlocMorph` package has the following structure:
-
-```
-bloc_morph/
-├── lib/
-│   └── bloc_morph.dart          # Main widget and logic
-├── example/
-│   ├── lib/
-│   │   ├── main.dart            # Sample app
-│   │   ├── bloc_cubit.dart      # Sample Bloc/Cubit
-│   │   ├── bloc_state.dart      # Sample Bloc/State
-│   │   └── item_image.dart      # Sample data model
-│   └── pubspec.yaml             # Example dependencies
-├── test/
-│   └── bloc_morph_test.dart     # Unit tests
-├── CHANGELOG.md
-├── LICENSE
-└── README.md
-```
-
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-For questions or feedback, feel free to open an issue on the [GitHub repository](https://github.com/PuzzleTakX/bloc_morph) or contact the maintainer at [your-email@example.com].
-
----
 
 <p align="center">Built with ❤️ for the PuzzleTakX</p>
