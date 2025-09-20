@@ -15,10 +15,10 @@ A powerful and flexible Flutter package for managing UI states with the Bloc pat
 
 Here is a visual comparison of different screens (square format):
 
-| Comparison 1 | Comparison 2 |
-|--------------|--------------|
-| <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/1.jpg?raw=true" alt="Screen 1" width="300" height="300"> | <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/2.jpg?raw=true" alt="Screen 2" width="300" height="300"> |
-| <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/3.jpg?raw=true" alt="Screen 3" width="300" height="300"> | <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/4.jpg?raw=true" alt="Screen 4" width="300" height="300"> |
+| Comparison 1                                                                                                                 | Comparison 2 |
+|------------------------------------------------------------------------------------------------------------------------------|--------------|
+| <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/1.png?raw=true" alt="Screen 1" width="300" height="300"> | <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/2.png?raw=true" alt="Screen 2" width="300" height="300"> |
+| <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/3.png?raw=true" alt="Screen 3" width="300" height="300"> | <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/4.png?raw=true" alt="Screen 4" width="300" height="300"> |
 
 *Left column vs Right column comparison.*
 
