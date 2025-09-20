@@ -18,7 +18,7 @@ A powerful and flexible Flutter package for managing UI states with the Bloc pat
 
 All notable changes to the `BlocMorph` widget will be documented in this file.
 
-## [0.2.1] - 2025-Sep-20
+## [0.2.2] - 2025-Sep-20
 
 ### Added
 - **Type Safety with `MorphState` Interface**: Introduced a `MorphState` interface to enforce type-safe access to `requestKey`, `typeState`, and `error` properties, eliminating unsafe `dynamic` casting.
