@@ -311,7 +311,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-For questions or feedback, feel free to open an issue on the [GitHub repository](https://github.com/PuzzleTakX/bloc_morph) or contact the maintainer at [your-email@example.com].
+For questions or feedback, feel free to open an issue on the [GitHub repository](https://github.com/PuzzleTakX/bloc_morph) or contact the maintainer at [puzzletakx@gmail.com].
 
 ---
 
