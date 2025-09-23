@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:bloc_morph/core/morph_state.dart';
+import 'package:bloc_morph/bloc_morph.dart';
 import 'package:example/bloc/item_image.dart';
 import 'package:meta/meta.dart';
 
