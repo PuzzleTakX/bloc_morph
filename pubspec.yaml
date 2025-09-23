@@ -1,6 +1,6 @@
 name: bloc_morph
 description: "A Flutter widget for elegant state management with Bloc, animating transitions between loading, error, empty, and content states."
-version: 0.2.2
+version: 0.2.5
 homepage: https://github.com/PuzzleTakX/bloc_morph.git
 repository: https://github.com/PuzzleTakX/bloc_morph
 issue_tracker: https://github.com/PuzzleTakX/bloc_morph/issues

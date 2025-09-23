@@ -18,6 +18,13 @@ A powerful and flexible Flutter package for managing UI states with the Bloc pat
 
 All notable changes to the `BlocMorph` widget will be documented in this file.
 
+## [0.2.5] - 2025-Sep-23
+- **Fixed** The key of `AnimatedSwitcher` was corrected to fix issues with state transitions, especially for pagination. Previously, the key was not always unique, causing problems with animations and widget updates. Now, a unique `ValueKey` is generated using the `requestKey` from `MorphState` to ensure proper behavior during transitions.
+- **Improved** `_buildErrorWidget` and `_buildNetworkErrorWidget` now use `RichText` for error messages to allow selective text scaling. This ensures that only the error message text scales according to accessibility settings, while other elements like icons and button text remain at their defined sizes.
+- **Improved** The logic for determining the icon and text style in `_buildErrorWidget` and `_buildNetworkErrorWidget` has been refactored for clarity and to better support platform-specific styling.
+- **Improved** Minor refactoring and code cleanup in `_BlocMorphState` for better readability and maintenance.
+
+
 ## [0.2.2] - 2025-Sep-20
 
 ### Added
