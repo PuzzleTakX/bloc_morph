@@ -39,10 +39,6 @@ class _SampleBlocPageState extends State<SampleBlocPage> {
           ],
         ),
         body: BlocMorph<MyBloc,MyState,DataLoadState>(
-          loading: Container(),
-          errorBuilder: (bloc, error) => Container(),
-          empty: Container(),
-          initial: Container(),
           builder: (data) {
             return _content(data!.data!); // response
           },
