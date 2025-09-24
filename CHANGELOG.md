@@ -16,9 +16,12 @@ A powerful and flexible Flutter package for managing UI states with the Bloc pat
 
 # Changelog
 
-All notable changes to the `BlocMorph` widget will be documented in this file.
 
-## [0.3.0] - 2024-Sep-24
+
+## [0.3.1+1] - 2024-09-24
+- **Fixed** Minor bug fixes and performance improvements.
+
+## [0.3.0] - 2024-09-24
 - **Refactor**: Renamed `TypeState` to `StatusState` to align with common state management terminologies, where "status" (e.g., loading, success, error) is a more conventional term than "type" for describing the current state of an operation.
 - **Refactor**: Renamed `disableAnimation` to `isDisableAnimation` for boolean properties.
 - **Refactor**: Updated `PaginatingBloc` and `PaginatingState` to use `StatusState`, aligning them with changes in `MorphState`.
@@ -26,14 +29,14 @@ All notable changes to the `BlocMorph` widget will be documented in this file.
 - **Docs**: Updated documentation and examples to reflect the renaming of `TypeState` to `StatusState`.
 
 
-## [0.2.5] - 2025-Sep-23
+## [0.2.5] - 2024-09-23
 - **Fixed** The key of `AnimatedSwitcher` was corrected to fix issues with state transitions, especially for pagination. Previously, the key was not always unique, causing problems with animations and widget updates. Now, a unique `ValueKey` is generated using the `requestKey` from `MorphState` to ensure proper behavior during transitions.
 - **Improved** `_buildErrorWidget` and `_buildNetworkErrorWidget` now use `RichText` for error messages to allow selective text scaling. This ensures that only the error message text scales according to accessibility settings, while other elements like icons and button text remain at their defined sizes.
 - **Improved** The logic for determining the icon and text style in `_buildErrorWidget` and `_buildNetworkErrorWidget` has been refactored for clarity and to better support platform-specific styling.
 - **Improved** Minor refactoring and code cleanup in `_BlocMorphState` for better readability and maintenance.
 
 
-## [0.2.2] - 2025-Sep-20
+## [0.2.2] - 2024-09-20
 
 ### Added
 - **Type Safety with `MorphState` Interface**: Introduced a `MorphState` interface to enforce type-safe access to `requestKey`, `typeState`, and `error` properties, eliminating unsafe `dynamic` casting.
@@ -55,7 +58,7 @@ All notable changes to the `BlocMorph` widget will be documented in this file.
 - **Animation Key Issues**: Fixed potential animation glitches by ensuring all state widgets in `_buildContent` have unique keys, particularly for pagination and non-pagination cases.
 
 
-### [0.1.4] - 2025-Sep-18
+### [0.1.4] - 2024-09-18
 - Initial Commit
 
 
