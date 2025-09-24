@@ -1,14 +1,7 @@
 part of 'my_bloc.dart';
 
 @immutable
-sealed class MyState implements MorphState {
-  @override
-  String? get requestKey;
-  @override
-  StatusState get statusState;
-  @override
-  String? get error;
-}
+sealed class MyState implements MorphState {}
 class DataInitial implements MyState {
   @override
   final String? requestKey;

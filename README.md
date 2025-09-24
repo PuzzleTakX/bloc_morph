@@ -11,13 +11,30 @@ A powerful and flexible Flutter package for managing UI states with the Bloc pat
 [![Flutter Version](https://img.shields.io/badge/Flutter-%3E%3D3.0.0-blue?style=flat-square)](https://pub.dev/packages/bloc_morph)
 [![Dart Version](https://img.shields.io/badge/Dart-%3E%3D2.17.0%20%3C4.0.0-blue?style=flat-square)](https://pub.dev/packages/bloc_morph)
 
+
+## For AndroidStudio IDE:
+
+<iframe width="384px" height="319px" src="https://plugins.jetbrains.com/embeddable/card/28557"></iframe>
+
+## Demo Video
+
+Watch a short demo of `BlocMorph` in action:
+
+<div align="center">
+  <a href="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/demo_plugin.mp4">
+    <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/img.png" alt="BlocMorph Demo Video" width="600"/>
+  </a>
+</div>
+
+
+
 # Demo Comparison
 
 Here is a visual comparison of different screens (square format):
 
 | Bad                                                                                                                          | Good                                                                                                                         |
 |------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
-| <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/1.png?raw=true" alt="Screen 1" width="300" height="300"> | <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/2.png?raw=true" alt="Screen 2" width="300" height="300"> |
+| <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/1.png[demo_plugin.mp4](demo/demo_plugin.mp4)?raw=true" alt="Screen 1" width="300" height="300"> | <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/2.png?raw=true" alt="Screen 2" width="300" height="300"> |
 | <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/3.png?raw=true" alt="Screen 3" width="300" height="300"> | <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/4.png?raw=true" alt="Screen 4" width="300" height="300"> |
 
 *Left column vs Right column comparison.*
