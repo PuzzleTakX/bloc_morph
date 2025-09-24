@@ -14,7 +14,7 @@ A powerful and flexible Flutter package for managing UI states with the Bloc pat
 
 ## For AndroidStudio IDE:
 
-<iframe width="384px" height="319px" src="https://plugins.jetbrains.com/plugin/28557-blocmorph"></iframe>
+[BlocMorph Plugin on JetBrains Marketplace](https://plugins.jetbrains.com/plugin/28557-blocmorph)
 
 ## Demo Video
 
