@@ -9,7 +9,7 @@ class BlocCubit extends Cubit<BlocState> {
   BlocCubit() : super(BlocInitial());
 
   void fetchData({String key = "public_key"}) async {
-    emit(BlocDataState(requestKey: key, typeState: TypeState.loading));
+    emit(BlocDataState(requestKey: key, statusState: StatusState.loading));
     await Future.delayed(const Duration(seconds: 2));
 
     final random = DateTime.now().second % 4;
@@ -47,14 +47,14 @@ class BlocCubit extends Cubit<BlocState> {
         ),
       ];
       emit(
-        BlocDataState(data: images, requestKey: key, typeState: TypeState.next),
+        BlocDataState(data: images, requestKey: key, statusState: StatusState.next),
       );
     } else if (random == 1) {
-      emit(BlocDataState(requestKey: key, typeState: TypeState.empty));
+      emit(BlocDataState(requestKey: key, statusState: StatusState.empty));
     } else if (random == 2) {
-      emit(BlocDataState(requestKey: key, typeState: TypeState.error));
+      emit(BlocDataState(requestKey: key, statusState: StatusState.error));
     } else {
-      emit(BlocDataState(requestKey: key, typeState: TypeState.networkError));
+      emit(BlocDataState(requestKey: key, statusState: StatusState.networkError));
     }
   }
 }

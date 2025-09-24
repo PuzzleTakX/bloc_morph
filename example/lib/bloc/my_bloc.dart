@@ -12,7 +12,7 @@ class MyBloc extends Bloc<MyEvent, MyState> {
   }
 
   Future<void> _onFetchData(FetchDataEvent event, Emitter<MyState> emit) async {
-    emit(DataLoadState(requestKey: event.key,typeState: TypeState.loading));
+    emit(DataLoadState(requestKey: event.key,statusState: StatusState.loading));
     await Future.delayed(const Duration(seconds: 2));
 
     final random = DateTime.now().second % 4;
@@ -44,13 +44,13 @@ class MyBloc extends Bloc<MyEvent, MyState> {
             description: "Vibrant lights of the city at night."
         ),
       ];
-      emit(DataLoadState(data: images, requestKey: event.key,typeState: TypeState.next));
+      emit(DataLoadState(data: images, requestKey: event.key,statusState: StatusState.next));
     } else if (random == 1) {
-      emit(DataLoadState(requestKey: event.key,typeState: TypeState.empty));
+      emit(DataLoadState(requestKey: event.key,statusState: StatusState.empty));
     } else if (random == 2) {
-      emit(DataLoadState(requestKey: event.key, error: "Failed to load data",typeState: TypeState.error));
+      emit(DataLoadState(requestKey: event.key, error: "Failed to load data",statusState: StatusState.error));
     } else {
-      emit(DataLoadState(requestKey: event.key,typeState: TypeState.networkError));
+      emit(DataLoadState(requestKey: event.key,statusState: StatusState.networkError));
     }
   }
 

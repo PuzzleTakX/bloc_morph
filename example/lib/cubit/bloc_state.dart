@@ -11,9 +11,9 @@ class BlocInitial extends BlocState {
   final String? requestKey;
 
   @override
-  final TypeState typeState;
+  final StatusState statusState;
 
-  BlocInitial({this.error, this.requestKey, this.typeState = TypeState.init});
+  BlocInitial({this.error, this.requestKey, this.statusState = StatusState.init});
 }
 
 class BlocDataState extends BlocState {
@@ -24,13 +24,13 @@ class BlocDataState extends BlocState {
   final String? requestKey;
 
   @override
-  final TypeState typeState;
+  final StatusState statusState;
   final List<ImageItem>? data;
 
   BlocDataState({
     this.error,
     this.requestKey,
-    required this.typeState,
+    required this.statusState,
     this.data,
   });
 }

@@ -12,7 +12,7 @@ class MyDataState extends MyState {
   final String? requestKey;
 
   @override
-  final TypeState typeState;
+  final StatusState statusState;
 
-  MyDataState({this.error,required this.typeState,this.requestKey});
+  MyDataState({this.error,required this.statusState,this.requestKey});
 }

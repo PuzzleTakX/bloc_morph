@@ -5,7 +5,7 @@ sealed class MyState implements MorphState {
   @override
   String? get requestKey;
   @override
-  TypeState get typeState;
+  StatusState get statusState;
   @override
   String? get error;
 }
@@ -13,13 +13,13 @@ class DataInitial implements MyState {
   @override
   final String? requestKey;
   @override
-  final TypeState typeState;
+  final StatusState statusState;
   @override
   final String? error;
   final List<ImageItem>? data;
   DataInitial({
     this.requestKey = "public_key",
-    this.typeState = TypeState.init,
+    this.statusState = StatusState.init,
     this.error,
     this.data,
   });
@@ -28,14 +28,14 @@ class DataLoadState implements MyState {
   @override
   final String? requestKey;
   @override
-  final TypeState typeState;
+  final StatusState statusState;
   @override
   final String? error;
   final List<ImageItem>? data;
 
   DataLoadState({
     this.requestKey = "public_key",
-    required this.typeState,
+    required this.statusState,
     this.error,
     this.data,
   });

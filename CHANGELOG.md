@@ -18,6 +18,14 @@ A powerful and flexible Flutter package for managing UI states with the Bloc pat
 
 All notable changes to the `BlocMorph` widget will be documented in this file.
 
+## [0.3.0] - 2024-Sep-24
+- **Refactor**: Renamed `TypeState` to `StatusState` to align with common state management terminologies, where "status" (e.g., loading, success, error) is a more conventional term than "type" for describing the current state of an operation.
+- **Refactor**: Renamed `disableAnimation` to `isDisableAnimation` for boolean properties.
+- **Refactor**: Updated `PaginatingBloc` and `PaginatingState` to use `StatusState`, aligning them with changes in `MorphState`.
+- **Feature**: Added `fadeInAnimation` and `fadeOutAnimation` parameters for customizing fade-in and fade-out animations in `AnimatedSwitcher`. This allows users to tailor transition effects for a better user experience.
+- **Docs**: Updated documentation and examples to reflect the renaming of `TypeState` to `StatusState`.
+
+
 ## [0.2.5] - 2025-Sep-23
 - **Fixed** The key of `AnimatedSwitcher` was corrected to fix issues with state transitions, especially for pagination. Previously, the key was not always unique, causing problems with animations and widget updates. Now, a unique `ValueKey` is generated using the `requestKey` from `MorphState` to ensure proper behavior during transitions.
 - **Improved** `_buildErrorWidget` and `_buildNetworkErrorWidget` now use `RichText` for error messages to allow selective text scaling. This ensures that only the error message text scales according to accessibility settings, while other elements like icons and button text remain at their defined sizes.
