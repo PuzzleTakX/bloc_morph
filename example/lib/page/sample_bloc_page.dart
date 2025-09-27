@@ -13,7 +13,6 @@ class SampleBlocPage extends StatefulWidget {
 }
 
 class _SampleBlocPageState extends State<SampleBlocPage> {
-
   @override
   void initState() {
     super.initState();
@@ -38,7 +37,7 @@ class _SampleBlocPageState extends State<SampleBlocPage> {
             ),
           ],
         ),
-        body: BlocMorph<MyBloc,MyState,DataLoadState>(
+        body: BlocMorph<MyBloc, MyState, DataLoadState>(
           builder: (data) {
             return _content(data!.data!); // response
           },
@@ -65,7 +64,9 @@ class _SampleBlocPageState extends State<SampleBlocPage> {
             children: [
               // Display image with rounded corners
               ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(16),
+                ),
                 child: Image.network(
                   item.imageUrl,
                   height: 200,
@@ -90,10 +91,7 @@ class _SampleBlocPageState extends State<SampleBlocPage> {
                     // Display item description
                     Text(
                       item.description,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[700],
-                      ),
+                      style: TextStyle(fontSize: 14, color: Colors.grey[700]),
                     ),
                   ],
                 ),

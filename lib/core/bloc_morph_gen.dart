@@ -79,11 +79,12 @@ class BlocMorph<B extends StateStreamable<S>, S extends MorphState, R>
 
   /// Custom transition builder for the [AnimatedSwitcher].
   final Widget Function(Widget child, Animation<double> animation)?
-  transitionBuilder;
+      transitionBuilder;
 
   /// A function that allows defining a custom animation.
   /// This function takes the current child widget and animation controller, and should return the animated widget.
-  final Widget Function(Widget child, Animation<double> animation)? customAnimationBuilder;
+  final Widget Function(Widget child, Animation<double> animation)?
+      customAnimationBuilder;
 
   /// Custom error message for [StatusState.error].
   final String? errorMessage;
@@ -153,6 +154,7 @@ class BlocMorph<B extends StateStreamable<S>, S extends MorphState, R>
 
   /// Whether to enable scale animation for state transitions. Defaults to `true`.
   final bool? enableScale;
+
   /// Whether to enable fade animation for state transitions. Defaults to `true`.
   ///
   /// If `false`, no fade animation will be applied during state transitions.
@@ -254,16 +256,16 @@ class _BlocMorphState<B extends StateStreamable<S>, S extends MorphState, R>
     return widget.disableAnimation
         ? content
         : AnimatedSwitcher(
-      duration: widget.animationDuration,
-      reverseDuration: widget.reverseAnimationDuration,
-      switchInCurve: widget.switchInCurve,
-      switchOutCurve: widget.switchOutCurve,
-      transitionBuilder: _buildTransition,
-      child: KeyedSubtree(
-        key: ValueKey(statusState),
-        child: content,
-      ),
-    );
+            duration: widget.animationDuration,
+            reverseDuration: widget.reverseAnimationDuration,
+            switchInCurve: widget.switchInCurve,
+            switchOutCurve: widget.switchOutCurve,
+            transitionBuilder: _buildTransition,
+            child: KeyedSubtree(
+              key: ValueKey(statusState),
+              child: content,
+            ),
+          );
   }
 
   Widget _buildTransition(Widget child, Animation<double> animation) {
@@ -297,13 +299,14 @@ class _BlocMorphState<B extends StateStreamable<S>, S extends MorphState, R>
   Widget _buildStateWidget(B bloc) {
     switch (statusState) {
       case StatusState.init:
-        return widget.initial ?? _buildDefaultWidget(
-          label: 'Initial state',
-          message: widget.initMessage ?? 'Starting to load...',
-          textStyle: widget.initTextStyle,
-          icon: Icons.hourglass_empty,
-          color: Theme.of(context).colorScheme.primary,
-        );
+        return widget.initial ??
+            _buildDefaultWidget(
+              label: 'Initial state',
+              message: widget.initMessage ?? 'Starting to load...',
+              textStyle: widget.initTextStyle,
+              icon: Icons.hourglass_empty,
+              color: Theme.of(context).colorScheme.primary,
+            );
       case StatusState.loading:
         return widget.loading ?? _buildLoadingWidget();
       case StatusState.next:
@@ -311,47 +314,56 @@ class _BlocMorphState<B extends StateStreamable<S>, S extends MorphState, R>
         return widget.builder != null
             ? widget.builder!(data)
             : _buildDefaultWidget(
-          label: 'Success state',
-          message: 'Operation successful',
-          icon: Icons.check_circle_outline,
-          color: Theme.of(context).colorScheme.secondary,
-        );
+                label: 'Success state',
+                message: 'Operation successful',
+                icon: Icons.check_circle_outline,
+                color: Theme.of(context).colorScheme.secondary,
+              );
       case StatusState.empty:
         return widget.empty ?? _buildEmptyWidget();
       case StatusState.error:
         return widget.errorBuilder != null
             ? widget.errorBuilder!(bloc, (data as MorphState?)?.error ?? '')
-            : _buildErrorWidget(bloc, widget.errorMessage ?? 'An error occurred while fetching data.',
-            widget.errorIcon, widget.errorColor, widget.errorTextStyle);
+            : _buildErrorWidget(
+                bloc,
+                widget.errorMessage ?? 'An error occurred while fetching data.',
+                widget.errorIcon,
+                widget.errorColor,
+                widget.errorTextStyle);
       case StatusState.networkError:
         return widget.networkError != null
             ? widget.networkError!(bloc)
-            : _buildErrorWidget(bloc, widget.networkErrorMessage ?? 'No internet connection.',
-            widget.networkErrorIcon ?? CupertinoIcons.wifi_exclamationmark, widget.networkErrorColor, widget.errorTextStyle);
+            : _buildErrorWidget(
+                bloc,
+                widget.networkErrorMessage ?? 'No internet connection.',
+                widget.networkErrorIcon ?? CupertinoIcons.wifi_exclamationmark,
+                widget.networkErrorColor,
+                widget.errorTextStyle);
       case StatusState.refreshing:
         return widget.builder != null
             ? Stack(
-          children: [
-            widget.builder!(data),
-            Positioned.fill(
-              child: Container(
-                color: Colors.black.withAlpha(20),
-                child: Center(child: widget.loading ?? _buildLoadingWidget()),
-              ),
-            ),
-          ],
-        )
+                children: [
+                  widget.builder!(data),
+                  Positioned.fill(
+                    child: Container(
+                      color: Colors.black.withAlpha(20),
+                      child: Center(
+                          child: widget.loading ?? _buildLoadingWidget()),
+                    ),
+                  ),
+                ],
+              )
             : widget.loading ?? _buildLoadingWidget();
       case StatusState.loadingMore:
       case StatusState.noMoreData:
         return widget.builder != null
             ? widget.builder!(data)
             : _buildDefaultWidget(
-          label: 'No more data',
-          message: 'No more data to load.',
-          icon: Icons.inbox_outlined,
-          color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
-        );
+                label: 'No more data',
+                message: 'No more data to load.',
+                icon: Icons.inbox_outlined,
+                color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
+              );
       case StatusState.unknown:
         return _buildDefaultWidget(
           label: 'Unknown state',
@@ -389,10 +401,11 @@ class _BlocMorphState<B extends StateStreamable<S>, S extends MorphState, R>
             Text(
               message,
               textDirection: TextDirection.ltr,
-              style: textStyle ?? theme.textTheme.bodyMedium?.copyWith(
-                fontSize: 13,
-                color: color ?? theme.colorScheme.onSurface,
-              ),
+              style: textStyle ??
+                  theme.textTheme.bodyMedium?.copyWith(
+                    fontSize: 13,
+                    color: color ?? theme.colorScheme.onSurface,
+                  ),
               textAlign: TextAlign.center,
               textScaler: MediaQuery.textScalerOf(context),
             ),
@@ -402,7 +415,8 @@ class _BlocMorphState<B extends StateStreamable<S>, S extends MorphState, R>
     );
   }
 
-  Widget _buildErrorWidget(B bloc, String message, IconData? icon, Color? color, TextStyle? textStyle) {
+  Widget _buildErrorWidget(B bloc, String message, IconData? icon, Color? color,
+      TextStyle? textStyle) {
     final theme = Theme.of(context);
     return Semantics(
       label: 'Error state',
@@ -417,9 +431,10 @@ class _BlocMorphState<B extends StateStreamable<S>, S extends MorphState, R>
               Semantics(
                 label: 'Error icon',
                 child: Icon(
-                  icon ?? (widget.platformStyle == PlatformStyle.material
-                      ? Icons.error_outline
-                      : CupertinoIcons.exclamationmark_triangle),
+                  icon ??
+                      (widget.platformStyle == PlatformStyle.material
+                          ? Icons.error_outline
+                          : CupertinoIcons.exclamationmark_triangle),
                   size: widget.errorIconSize ?? 60,
                   color: color ?? theme.colorScheme.error,
                 ),
@@ -428,11 +443,12 @@ class _BlocMorphState<B extends StateStreamable<S>, S extends MorphState, R>
               Text(
                 message,
                 textDirection: TextDirection.ltr,
-                style: textStyle ?? theme.textTheme.bodyMedium?.copyWith(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                  color: color ?? theme.colorScheme.error,
-                ),
+                style: textStyle ??
+                    theme.textTheme.bodyMedium?.copyWith(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      color: color ?? theme.colorScheme.error,
+                    ),
                 textAlign: TextAlign.center,
                 textScaler: MediaQuery.textScalerOf(context),
               ),
@@ -464,17 +480,19 @@ class _BlocMorphState<B extends StateStreamable<S>, S extends MorphState, R>
                 child: Icon(
                   widget.emptyIcon ?? Icons.inbox,
                   size: 72,
-                  color: widget.emptyColor ?? theme.colorScheme.onSurface.withAlpha(153),
+                  color: widget.emptyColor ??
+                      theme.colorScheme.onSurface.withAlpha(153),
                 ),
               ),
               const SizedBox(height: 16),
               Text(
                 widget.emptyMessage ?? 'No data available.',
                 textDirection: TextDirection.ltr,
-                style: widget.emptyTextStyle ?? theme.textTheme.bodyMedium?.copyWith(
-                  fontSize: 14,
-                  color: theme.colorScheme.onSurface.withAlpha(153),
-                ),
+                style: widget.emptyTextStyle ??
+                    theme.textTheme.bodyMedium?.copyWith(
+                      fontSize: 14,
+                      color: theme.colorScheme.onSurface.withAlpha(153),
+                    ),
                 textAlign: TextAlign.center,
                 textScaler: MediaQuery.textScalerOf(context),
               ),
@@ -483,10 +501,11 @@ class _BlocMorphState<B extends StateStreamable<S>, S extends MorphState, R>
                 Text(
                   widget.emptySubMessage!,
                   textDirection: TextDirection.ltr,
-                  style: widget.emptySubTextStyle ?? theme.textTheme.bodySmall?.copyWith(
-                    fontSize: 11,
-                    color: theme.colorScheme.onSurface.withAlpha(127),
-                  ),
+                  style: widget.emptySubTextStyle ??
+                      theme.textTheme.bodySmall?.copyWith(
+                        fontSize: 11,
+                        color: theme.colorScheme.onSurface.withAlpha(127),
+                      ),
                   textAlign: TextAlign.center,
                   textScaler: MediaQuery.textScalerOf(context),
                 ),
@@ -500,39 +519,42 @@ class _BlocMorphState<B extends StateStreamable<S>, S extends MorphState, R>
 
   Widget _buildLoadingWidget() {
     return Center(
-      child: widget.loading ?? CircularProgressIndicator(
-        valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).colorScheme.primary),
-        strokeWidth: 3.0,
-      ),
+      child: widget.loading ??
+          CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(
+                Theme.of(context).colorScheme.primary),
+            strokeWidth: 3.0,
+          ),
     );
   }
 
   Widget _buildTryAgainButton(B bloc, ThemeData theme) {
     return widget.platformStyle == PlatformStyle.material
         ? ElevatedButton(
-      onPressed: () => widget.onTry!(bloc),
-      child: const Text('Try Again'),
-    )
+            onPressed: () => widget.onTry!(bloc),
+            child: const Text('Try Again'),
+          )
         : CupertinoButton(
-      color: theme.dividerColor.withAlpha(20),
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-      borderRadius: BorderRadius.circular(150),
-      onPressed: () => widget.onTry!(bloc),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(CupertinoIcons.refresh, size: 18, color: theme.dividerColor),
-          const SizedBox(width: 6),
-          Text(
-            'Try Again',
-            style: theme.textTheme.bodyMedium?.copyWith(
-              fontSize: 13,
-              color: theme.dividerColor,
-              fontWeight: FontWeight.w400,
+            color: theme.dividerColor.withAlpha(20),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            borderRadius: BorderRadius.circular(150),
+            onPressed: () => widget.onTry!(bloc),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(CupertinoIcons.refresh,
+                    size: 18, color: theme.dividerColor),
+                const SizedBox(width: 6),
+                Text(
+                  'Try Again',
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    fontSize: 13,
+                    color: theme.dividerColor,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
-    );
+          );
   }
 }

@@ -1,4 +1,3 @@
-
 /// Interface for states to ensure type safety and required properties.
 abstract class MorphState {
   String? get requestKey;
@@ -7,7 +6,19 @@ abstract class MorphState {
 }
 
 /// Enum defining possible UI states for the BlocMorph widget.
-enum StatusState { init, loading, empty, error, networkError, next, success, refreshing, loadingMore, noMoreData, unknown }
+enum StatusState {
+  init,
+  loading,
+  empty,
+  error,
+  networkError,
+  next,
+  success,
+  refreshing,
+  loadingMore,
+  noMoreData,
+  unknown
+}
 
 /// Represents the initial state.
 class InitialState implements MorphState {

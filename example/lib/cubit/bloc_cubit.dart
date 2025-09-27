@@ -47,16 +47,20 @@ class BlocCubit extends Cubit<BlocState> {
         ),
       ];
       emit(
-        BlocDataState(data: images, requestKey: key, statusState: StatusState.next),
+        BlocDataState(
+          data: images,
+          requestKey: key,
+          statusState: StatusState.next,
+        ),
       );
     } else if (random == 1) {
       emit(BlocDataState(requestKey: key, statusState: StatusState.empty));
     } else if (random == 2) {
       emit(BlocDataState(requestKey: key, statusState: StatusState.error));
     } else {
-      emit(BlocDataState(requestKey: key, statusState: StatusState.networkError));
+      emit(
+        BlocDataState(requestKey: key, statusState: StatusState.networkError),
+      );
     }
   }
 }
-
-

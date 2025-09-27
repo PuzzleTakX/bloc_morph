@@ -13,17 +13,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider(create: (context) => BlocCubit(),),
-      BlocProvider(create: (context) => MyBloc(),)
-    ],
-        child: MaterialApp(
-          title: 'Flutter Morph',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          ),
-          home: HomePage(),
-        ));
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => BlocCubit()),
+        BlocProvider(create: (context) => MyBloc()),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Morph',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        ),
+        home: HomePage(),
+      ),
+    );
   }
 }
-

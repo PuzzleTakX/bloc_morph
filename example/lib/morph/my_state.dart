@@ -1,9 +1,8 @@
 part of 'my_cubit.dart';
 
 @immutable
-sealed class MyState implements MorphState{
+sealed class MyState implements MorphState {}
 
-}
 class MyDataState extends MyState {
   @override
   final String? error;
@@ -14,5 +13,5 @@ class MyDataState extends MyState {
   @override
   final StatusState statusState;
 
-  MyDataState({this.error,required this.statusState,this.requestKey});
+  MyDataState({this.error, required this.statusState, this.requestKey});
 }

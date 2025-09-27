@@ -13,7 +13,6 @@ class SampleCubitPage extends StatefulWidget {
 }
 
 class _SampleCubitPageState extends State<SampleCubitPage> {
-
   @override
   void initState() {
     super.initState();
@@ -67,7 +66,9 @@ class _SampleCubitPageState extends State<SampleCubitPage> {
             children: [
               // Display image with rounded top corners
               ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(16),
+                ),
                 child: Image.network(
                   item.imageUrl,
                   height: 200,
@@ -92,10 +93,7 @@ class _SampleCubitPageState extends State<SampleCubitPage> {
                     // Display item description
                     Text(
                       item.description,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[700],
-                      ),
+                      style: TextStyle(fontSize: 14, color: Colors.grey[700]),
                     ),
                   ],
                 ),

@@ -17,6 +17,8 @@ A powerful and flexible Flutter package for managing UI states with the Bloc pat
 # Changelog
 
 
+## [0.3.1+2] - 2024-09-27
+- **Fixed** Fix Format.
 
 ## [0.3.1+1] - 2024-09-24
 - **Fixed** Minor bug fixes and performance improvements.

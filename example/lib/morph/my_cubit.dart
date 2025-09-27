@@ -6,5 +6,4 @@ part 'my_state.dart';
 
 class MyCubit extends Cubit<MyState> {
   MyCubit() : super(MyDataState(statusState: StatusState.init));
-
 }

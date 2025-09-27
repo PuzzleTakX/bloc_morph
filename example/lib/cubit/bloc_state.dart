@@ -13,7 +13,11 @@ class BlocInitial extends BlocState {
   @override
   final StatusState statusState;
 
-  BlocInitial({this.error, this.requestKey, this.statusState = StatusState.init});
+  BlocInitial({
+    this.error,
+    this.requestKey,
+    this.statusState = StatusState.init,
+  });
 }
 
 class BlocDataState extends BlocState {
