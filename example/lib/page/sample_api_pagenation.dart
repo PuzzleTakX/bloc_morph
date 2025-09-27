@@ -1,6 +1,3 @@
-
-
-
 import 'package:bloc_morph/bloc_morph.dart';
 import 'package:example/bloc/model_wallpaper.dart';
 import 'package:example/bloc/my_bloc.dart';
@@ -29,9 +26,9 @@ class _SampleApiPaginationState extends State<SampleApiPagination> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
           _scrollController.position.maxScrollExtent - 200) {
-        if(_currentPage <= _maxPages && _isPaging == true){
+        if (_currentPage <= _maxPages && _isPaging == true) {
           _isPaging = false;
-          _currentPage= _currentPage + 1;
+          _currentPage = _currentPage + 1;
           context.read<MyBloc>().fetchWallpapersPagination(_currentPage);
         }
       }
@@ -73,7 +70,7 @@ class _SampleApiPaginationState extends State<SampleApiPagination> {
               _fetchInitialData();
             },
             icon: const Icon(Icons.refresh),
-          )
+          ),
         ],
       ),
       body: BlocMorph<MyBloc, MyState, DataLoadStatePage>(
@@ -83,7 +80,10 @@ class _SampleApiPaginationState extends State<SampleApiPagination> {
             _isPaging = true;
             data.addAll(newData!.data!);
           }
-          return _buildContent(data, (_currentPage < _maxPages && _isPaging == false));
+          return _buildContent(
+            data,
+            (_currentPage < _maxPages && _isPaging == false),
+          );
         },
       ),
     );
@@ -99,8 +99,7 @@ class _SampleApiPaginationState extends State<SampleApiPagination> {
         mainAxisSpacing: 8.0,
         childAspectRatio: 0.75,
       ),
-      itemCount: data.length +
-          (isLoadingNextPage ? 1 : 0),
+      itemCount: data.length + (isLoadingNextPage ? 1 : 0),
       itemBuilder: (context, index) {
         if (index == data.length && isLoadingNextPage) {
           return const Center(child: CircularProgressIndicator());
@@ -113,8 +112,9 @@ class _SampleApiPaginationState extends State<SampleApiPagination> {
           child: Image.network(
             wallpaper.imageUrl ?? 'https://via.placeholder.com/150',
             fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) =>
-                const Icon(Icons.error_outline, color: Colors.red),
+            errorBuilder:
+                (context, error, stackTrace) =>
+                    const Icon(Icons.error_outline, color: Colors.red),
           ),
         );
       },

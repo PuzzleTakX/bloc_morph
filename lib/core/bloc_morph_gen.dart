@@ -26,7 +26,8 @@ class BlocMorph<B extends StateStreamable<S>, S extends MorphState, R>
     extends StatefulWidget {
   /// The builder function to render the UI when the state is [StatusState.next].
   final Widget Function(R? data)? builder;
-  final Widget Function(B bloc,R? data,StatusState statusState,int page)? paginationBuilder;
+  final Widget Function(B bloc, R? data, StatusState statusState, int page)?
+      paginationBuilder;
 
   /// The builder function to render the UI when the state is [StatusState.error].
   /// Provides the current bloc and error message for custom error handling.
@@ -215,7 +216,8 @@ class BlocMorph<B extends StateStreamable<S>, S extends MorphState, R>
     this.errorPadding,
     this.errorIconSize,
     this.stateBuilders,
-    this.noDataStateBuilders, this.paginationBuilder,
+    this.noDataStateBuilders,
+    this.paginationBuilder,
   });
 
   @override
@@ -237,21 +239,21 @@ class _BlocMorphState<B extends StateStreamable<S>, S extends MorphState, R>
         if (widget.streaming == false) return;
         if (state is! R) return;
         final stateKey = (state as dynamic).requestKey as String?;
-        if(widget.paginationBuilder != null){
+        if (widget.paginationBuilder != null) {
           page = (state as dynamic).page as int;
         }
-        if ( widget.requestKey != null) {
-        if (stateKey == widget.requestKey) {
-          if (data != state && mounted) {
-            setState(() {
-              data = state as R?;
-              statusState = state.statusState;
-              widget.onNext?.call(state as R);
-            });
-            widget.onState?.call(statusState,  data as R);
+        if (widget.requestKey != null) {
+          if (stateKey == widget.requestKey) {
+            if (data != state && mounted) {
+              setState(() {
+                data = state as R?;
+                statusState = state.statusState;
+                widget.onNext?.call(state as R);
+              });
+              widget.onState?.call(statusState, data as R);
+            }
           }
-        }
-        }else{
+        } else {
           if (data != state && mounted) {
             setState(() {
               data = state as R?;
@@ -342,56 +344,56 @@ class _BlocMorphState<B extends StateStreamable<S>, S extends MorphState, R>
         return widget.builder != null
             ? widget.builder!(data)
             : _buildDefaultWidget(
-          label: 'Success state',
-          message: 'Operation successful',
-          icon: Icons.check_circle_outline,
-          color: Theme.of(context).colorScheme.secondary,
-        );
+                label: 'Success state',
+                message: 'Operation successful',
+                icon: Icons.check_circle_outline,
+                color: Theme.of(context).colorScheme.secondary,
+              );
       case StatusState.empty:
         return widget.empty ?? _buildEmptyWidget();
       case StatusState.error:
         return widget.errorBuilder != null
             ? widget.errorBuilder!(bloc, (data as MorphState?)?.error ?? '')
             : _buildErrorWidget(
-            bloc,
-            widget.errorMessage ?? 'An error occurred while fetching data.',
-            widget.errorIcon,
-            widget.errorColor,
-            widget.errorTextStyle);
+                bloc,
+                widget.errorMessage ?? 'An error occurred while fetching data.',
+                widget.errorIcon,
+                widget.errorColor,
+                widget.errorTextStyle);
       case StatusState.networkError:
         return widget.networkError != null
             ? widget.networkError!(bloc)
             : _buildErrorWidget(
-            bloc,
-            widget.networkErrorMessage ?? 'No internet connection.',
-            widget.networkErrorIcon ?? CupertinoIcons.wifi_exclamationmark,
-            widget.networkErrorColor,
-            widget.errorTextStyle);
+                bloc,
+                widget.networkErrorMessage ?? 'No internet connection.',
+                widget.networkErrorIcon ?? CupertinoIcons.wifi_exclamationmark,
+                widget.networkErrorColor,
+                widget.errorTextStyle);
       case StatusState.refreshing:
         return widget.builder != null
             ? Stack(
-          children: [
-            widget.builder!(data),
-            Positioned.fill(
-              child: Container(
-                color: Colors.black.withAlpha(20),
-                child: Center(
-                    child: widget.loading ?? _buildLoadingWidget()),
-              ),
-            ),
-          ],
-        )
+                children: [
+                  widget.builder!(data),
+                  Positioned.fill(
+                    child: Container(
+                      color: Colors.black.withAlpha(20),
+                      child: Center(
+                          child: widget.loading ?? _buildLoadingWidget()),
+                    ),
+                  ),
+                ],
+              )
             : widget.loading ?? _buildLoadingWidget();
       case StatusState.loadingMore:
       case StatusState.noMoreData:
         return widget.builder != null
             ? widget.builder!(data)
             : _buildDefaultWidget(
-          label: 'No more data',
-          message: 'No more data to load.',
-          icon: Icons.inbox_outlined,
-          color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
-        );
+                label: 'No more data',
+                message: 'No more data to load.',
+                icon: Icons.inbox_outlined,
+                color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
+              );
       case StatusState.unknown:
         return _buildDefaultWidget(
           label: 'Unknown state',
@@ -403,7 +405,8 @@ class _BlocMorphState<B extends StateStreamable<S>, S extends MorphState, R>
   }
 
   Widget _buildStateWidgetWithPagination(B bloc) {
-    if(page != 1) return widget.paginationBuilder!(bloc,data,statusState,page);
+    if (page != 1)
+      return widget.paginationBuilder!(bloc, data, statusState, page);
     switch (statusState) {
       case StatusState.init:
         return widget.initial ??
@@ -419,58 +422,58 @@ class _BlocMorphState<B extends StateStreamable<S>, S extends MorphState, R>
       case StatusState.next:
       case StatusState.success:
         return widget.paginationBuilder != null
-            ?  widget.paginationBuilder!(bloc,data,statusState,page)
+            ? widget.paginationBuilder!(bloc, data, statusState, page)
             : _buildDefaultWidget(
-          label: 'Success state',
-          message: 'Operation successful',
-          icon: Icons.check_circle_outline,
-          color: Theme.of(context).colorScheme.secondary,
-        );
+                label: 'Success state',
+                message: 'Operation successful',
+                icon: Icons.check_circle_outline,
+                color: Theme.of(context).colorScheme.secondary,
+              );
       case StatusState.empty:
         return widget.empty ?? _buildEmptyWidget();
       case StatusState.error:
         return widget.errorBuilder != null
             ? widget.errorBuilder!(bloc, (data as MorphState?)?.error ?? '')
             : _buildErrorWidget(
-            bloc,
-            widget.errorMessage ?? 'An error occurred while fetching data.',
-            widget.errorIcon,
-            widget.errorColor,
-            widget.errorTextStyle);
+                bloc,
+                widget.errorMessage ?? 'An error occurred while fetching data.',
+                widget.errorIcon,
+                widget.errorColor,
+                widget.errorTextStyle);
       case StatusState.networkError:
         return widget.networkError != null
             ? widget.networkError!(bloc)
             : _buildErrorWidget(
-            bloc,
-            widget.networkErrorMessage ?? 'No internet connection.',
-            widget.networkErrorIcon ?? CupertinoIcons.wifi_exclamationmark,
-            widget.networkErrorColor,
-            widget.errorTextStyle);
+                bloc,
+                widget.networkErrorMessage ?? 'No internet connection.',
+                widget.networkErrorIcon ?? CupertinoIcons.wifi_exclamationmark,
+                widget.networkErrorColor,
+                widget.errorTextStyle);
       case StatusState.refreshing:
         return widget.builder != null
             ? Stack(
-          children: [
-            widget.builder!(data),
-            Positioned.fill(
-              child: Container(
-                color: Colors.black.withAlpha(20),
-                child: Center(
-                    child: widget.loading ?? _buildLoadingWidget()),
-              ),
-            ),
-          ],
-        )
+                children: [
+                  widget.builder!(data),
+                  Positioned.fill(
+                    child: Container(
+                      color: Colors.black.withAlpha(20),
+                      child: Center(
+                          child: widget.loading ?? _buildLoadingWidget()),
+                    ),
+                  ),
+                ],
+              )
             : widget.loading ?? _buildLoadingWidget();
       case StatusState.loadingMore:
       case StatusState.noMoreData:
         return widget.builder != null
             ? widget.builder!(data)
             : _buildDefaultWidget(
-          label: 'No more data',
-          message: 'No more data to load.',
-          icon: Icons.inbox_outlined,
-          color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
-        );
+                label: 'No more data',
+                message: 'No more data to load.',
+                icon: Icons.inbox_outlined,
+                color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
+              );
       case StatusState.unknown:
         return _buildDefaultWidget(
           label: 'Unknown state',

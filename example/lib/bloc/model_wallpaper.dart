@@ -7,14 +7,15 @@ class DataWallPaper {
   String? pageUrl;
   String? date;
 
-  DataWallPaper(
-      {this.title,
-        this.copyright,
-        this.fullUrl,
-        this.thumbUrl,
-        this.imageUrl,
-        this.pageUrl,
-        this.date});
+  DataWallPaper({
+    this.title,
+    this.copyright,
+    this.fullUrl,
+    this.thumbUrl,
+    this.imageUrl,
+    this.pageUrl,
+    this.date,
+  });
 
   DataWallPaper.fromJson(Map<String, dynamic> json) {
     title = json['title'];

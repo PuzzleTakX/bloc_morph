@@ -1,6 +1,3 @@
-
-
-
 import 'package:bloc_morph/bloc_morph.dart';
 import 'package:example/bloc/model_wallpaper.dart';
 import 'package:example/bloc/my_bloc.dart';
@@ -15,7 +12,6 @@ class SampleApiWithKeyPage extends StatefulWidget {
 }
 
 class _SampleApiWithKeyPageState extends State<SampleApiWithKeyPage> {
-
   @override
   void initState() {
     super.initState();
@@ -26,33 +22,43 @@ class _SampleApiWithKeyPageState extends State<SampleApiWithKeyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Sample Api Page"),
+      appBar: AppBar(
+        title: Text("Sample Api Page"),
         actions: [
-          IconButton(onPressed: (){
-            context.read<MyBloc>().fetchWallpapersWithKey("key_one");
-          }, icon: Text("One")),
-          IconButton(onPressed: (){
-            context.read<MyBloc>().fetchWallpapersWithKey("key_two");
-          }, icon: Text("Two"))
+          IconButton(
+            onPressed: () {
+              context.read<MyBloc>().fetchWallpapersWithKey("key_one");
+            },
+            icon: Text("One"),
+          ),
+          IconButton(
+            onPressed: () {
+              context.read<MyBloc>().fetchWallpapersWithKey("key_two");
+            },
+            icon: Text("Two"),
+          ),
         ],
       ),
       body: Column(
         children: [
-          Expanded(child: BlocMorph<MyBloc, MyState,DataLoadState>(
-            requestKey: "key_one",
-            builder:(data) => _buildContent(data!.data ?? []),
-          )),
-          Expanded(child: BlocMorph<MyBloc, MyState,DataLoadState>(
-            requestKey: "key_two",
-            builder:(data) => _buildContent(data!.data ?? []),
-          )),
+          Expanded(
+            child: BlocMorph<MyBloc, MyState, DataLoadState>(
+              requestKey: "key_one",
+              builder: (data) => _buildContent(data!.data ?? []),
+            ),
+          ),
+          Expanded(
+            child: BlocMorph<MyBloc, MyState, DataLoadState>(
+              requestKey: "key_two",
+              builder: (data) => _buildContent(data!.data ?? []),
+            ),
+          ),
         ],
       ),
     );
   }
 
-
-  Widget _buildContent(List<DataWallPaper> data){
+  Widget _buildContent(List<DataWallPaper> data) {
     return GridView.builder(
       padding: const EdgeInsets.all(8.0),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -68,13 +74,14 @@ class _SampleApiWithKeyPageState extends State<SampleApiWithKeyPage> {
           clipBehavior: Clip.antiAlias,
           elevation: 4.0,
           child: Image.network(
-            wallpaper.imageUrl ?? 'https://via.placeholder.com/150', // Provide a placeholder if src is null
+            wallpaper.imageUrl ??
+                'https://via.placeholder.com/150', // Provide a placeholder if src is null
             fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
+            errorBuilder:
+                (context, error, stackTrace) => const Icon(Icons.error),
           ),
         );
       },
     );
   }
-
 }

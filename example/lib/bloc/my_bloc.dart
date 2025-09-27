@@ -13,9 +13,12 @@ class MyBloc extends Bloc<MyEvent, MyState> {
     on<FetchWallpapersPaginationEvent>(_onFetchWallpapersPage);
   }
 
-  void _onFetchWallpapers(FetchWallpapersEvent event, Emitter<MyState> emit) async {
+  void _onFetchWallpapers(
+    FetchWallpapersEvent event,
+    Emitter<MyState> emit,
+  ) async {
     emit(
-      DataLoadState( statusState: StatusState.loading,requestKey: event.key),
+      DataLoadState(statusState: StatusState.loading, requestKey: event.key),
     );
     try {
       final dio = Dio();
@@ -23,28 +26,55 @@ class MyBloc extends Bloc<MyEvent, MyState> {
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data;
         if (data.isEmpty) {
-          emit(DataLoadState( statusState: StatusState.empty,requestKey: event.key));
-        }else {
-          final List<DataWallPaper> images = data.map((item) {
-            return DataWallPaper.fromJson(item);
-          }).toList();
           emit(
             DataLoadState(
-                data: images,requestKey: event.key,
-                statusState: StatusState.next),
+              statusState: StatusState.empty,
+              requestKey: event.key,
+            ),
+          );
+        } else {
+          final List<DataWallPaper> images =
+              data.map((item) {
+                return DataWallPaper.fromJson(item);
+              }).toList();
+          emit(
+            DataLoadState(
+              data: images,
+              requestKey: event.key,
+              statusState: StatusState.next,
+            ),
           );
         }
       } else {
-        emit(DataLoadState( error: "Failed to load wallpapers", statusState: StatusState.error,requestKey: event.key));
+        emit(
+          DataLoadState(
+            error: "Failed to load wallpapers",
+            statusState: StatusState.error,
+            requestKey: event.key,
+          ),
+        );
       }
     } catch (e) {
-      emit(DataLoadState( error: e.toString(), statusState: StatusState.networkError,requestKey: event.key));
+      emit(
+        DataLoadState(
+          error: e.toString(),
+          statusState: StatusState.networkError,
+          requestKey: event.key,
+        ),
+      );
     }
   }
 
-  void _onFetchWallpapersPage(FetchWallpapersPaginationEvent event, Emitter<MyState> emit) async {
+  void _onFetchWallpapersPage(
+    FetchWallpapersPaginationEvent event,
+    Emitter<MyState> emit,
+  ) async {
     emit(
-      DataLoadStatePage( statusState: StatusState.loading,requestKey: event.key,page: event.page),
+      DataLoadStatePage(
+        statusState: StatusState.loading,
+        requestKey: event.key,
+        page: event.page,
+      ),
     );
     try {
       final dio = Dio();
@@ -52,27 +82,52 @@ class MyBloc extends Bloc<MyEvent, MyState> {
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data;
         if (data.isEmpty) {
-          emit(DataLoadStatePage( statusState: StatusState.empty,requestKey: event.key,page: event.page));
-        }else {
-          final List<DataWallPaper> images = data.map((item) {
-            return DataWallPaper.fromJson(item);
-          }).toList();
           emit(
             DataLoadStatePage(
-                data: images,requestKey: event.key,page: event.page,
-                statusState: StatusState.next),
+              statusState: StatusState.empty,
+              requestKey: event.key,
+              page: event.page,
+            ),
+          );
+        } else {
+          final List<DataWallPaper> images =
+              data.map((item) {
+                return DataWallPaper.fromJson(item);
+              }).toList();
+          emit(
+            DataLoadStatePage(
+              data: images,
+              requestKey: event.key,
+              page: event.page,
+              statusState: StatusState.next,
+            ),
           );
         }
       } else {
-        emit(DataLoadStatePage( error: "Failed to load wallpapers", statusState: StatusState.error,requestKey: event.key,page: event.page));
+        emit(
+          DataLoadStatePage(
+            error: "Failed to load wallpapers",
+            statusState: StatusState.error,
+            requestKey: event.key,
+            page: event.page,
+          ),
+        );
       }
     } catch (e) {
-      emit(DataLoadStatePage( error: e.toString(), statusState: StatusState.networkError,requestKey: event.key,page: event.page));
+      emit(
+        DataLoadStatePage(
+          error: e.toString(),
+          statusState: StatusState.networkError,
+          requestKey: event.key,
+          page: event.page,
+        ),
+      );
     }
   }
 
   void fetchWallpapers() => add(FetchWallpapersEvent());
-  void fetchWallpapersWithKey(String key) => add(FetchWallpapersEvent(key: key));
-  void fetchWallpapersPagination(int page) => add(FetchWallpapersPaginationEvent(page: page));
-
+  void fetchWallpapersWithKey(String key) =>
+      add(FetchWallpapersEvent(key: key));
+  void fetchWallpapersPagination(int page) =>
+      add(FetchWallpapersPaginationEvent(page: page));
 }

@@ -36,96 +36,116 @@ class HomePage extends StatelessWidget {
               "BlocMorph is your companion in Flutter, seamlessly managing Bloc states and elegantly transitioning between loading, error, empty, and content views for a smooth and polished user experience.",
               textAlign: TextAlign.start,
               style: TextStyle(
-                  fontWeight: FontWeight.normal, fontSize: 12, height: 1.8),
+                fontWeight: FontWeight.normal,
+                fontSize: 12,
+                height: 1.8,
+              ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text("Samples",
+            child: Text(
+              "Samples",
               textAlign: TextAlign.start,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            ),
           ),
-          Expanded(child: ListView(
-            children: [
-              ListTile(
-                title: Text('API Call Sample'),
-                subtitle: Text('Demonstrates a basic API call, showcasing how BlocMorph handles loading, error, and content states.',
-                  style: TextStyle(fontSize: 12),
+          Expanded(
+            child: ListView(
+              children: [
+                ListTile(
+                  title: Text('API Call Sample'),
+                  subtitle: Text(
+                    'Demonstrates a basic API call, showcasing how BlocMorph handles loading, error, and content states.',
+                    style: TextStyle(fontSize: 12),
+                  ),
+                  trailing: const Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.black26,
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SampleApiPage()),
+                    );
+                  },
                 ),
-                trailing: const Icon(Icons.arrow_forward_ios,color: Colors.black26,),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SampleApiPage(),
-                    ),
-                  );
-                },
-              ),
-              ListTile(
-                title: Text('API Call with RequestKey Sample'),
-                subtitle: Text('Illustrates using RequestKey in BlocMorph to manage multiple API requests and prevent state conflicts.',
-                  style: TextStyle(fontSize: 12),
+                ListTile(
+                  title: Text('API Call with RequestKey Sample'),
+                  subtitle: Text(
+                    'Illustrates using RequestKey in BlocMorph to manage multiple API requests and prevent state conflicts.',
+                    style: TextStyle(fontSize: 12),
+                  ),
+                  trailing: const Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.black26,
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SampleApiWithKeyPage(),
+                      ),
+                    );
+                  },
                 ),
-                trailing: const Icon(Icons.arrow_forward_ios,color: Colors.black26,),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SampleApiWithKeyPage(),
-                    ),
-                  );
-                },
-              ),
-              ListTile(
-                title: Text('Stream Handling Sample'),
-                subtitle: Text('Shows how to integrate BlocMorph with Streams for dynamic UI updates based on emitted data.',
-                  style: TextStyle(fontSize: 12),
+                ListTile(
+                  title: Text('Stream Handling Sample'),
+                  subtitle: Text(
+                    'Shows how to integrate BlocMorph with Streams for dynamic UI updates based on emitted data.',
+                    style: TextStyle(fontSize: 12),
+                  ),
+                  trailing: const Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.black26,
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SampleStream()),
+                    );
+                  },
                 ),
-                trailing: const Icon(Icons.arrow_forward_ios,color: Colors.black26,),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SampleStream(),
-                    ),
-                  );
-                },
-              ),
-              ListTile(
-                title: Text('onState Callback Sample'),
-                subtitle: Text('Demonstrates the onState callback in BlocMorph for executing specific actions upon Bloc state changes.',
-                  style: TextStyle(fontSize: 12),
+                ListTile(
+                  title: Text('onState Callback Sample'),
+                  subtitle: Text(
+                    'Demonstrates the onState callback in BlocMorph for executing specific actions upon Bloc state changes.',
+                    style: TextStyle(fontSize: 12),
+                  ),
+                  trailing: const Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.black26,
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SampleOnState()),
+                    );
+                  },
                 ),
-                trailing: const Icon(Icons.arrow_forward_ios,color: Colors.black26,),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SampleOnState(),
-                    ),
-                  );
-                },
-              ),
-              ListTile(
-                title: Text('API Pagination Sample'),
-                subtitle: Text('Provides an example of implementing paginated data loading from an API using BlocMorph.',
-                  style: TextStyle(fontSize: 12),
+                ListTile(
+                  title: Text('API Pagination Sample'),
+                  subtitle: Text(
+                    'Provides an example of implementing paginated data loading from an API using BlocMorph.',
+                    style: TextStyle(fontSize: 12),
+                  ),
+                  trailing: const Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.black26,
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SampleApiPagination(),
+                      ),
+                    );
+                  },
                 ),
-                trailing: const Icon(Icons.arrow_forward_ios,color: Colors.black26,),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SampleApiPagination(),
-                    ),
-                  );
-                },
-              ),
-              SizedBox(height: 20,),
-
-            ],
-          ))
+                SizedBox(height: 20),
+              ],
+            ),
+          ),
         ],
       ),
     );

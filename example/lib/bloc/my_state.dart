@@ -33,6 +33,7 @@ class DataLoadState implements MyState {
     this.data,
   });
 }
+
 class DataLoadStatePage implements MyState {
   @override
   final String? requestKey;
@@ -41,7 +42,9 @@ class DataLoadStatePage implements MyState {
   @override
   final String? error;
 
-  final int page; /// This is completely mandatory
+  final int page;
+
+  /// This is completely mandatory
 
   final List<DataWallPaper>? data;
 

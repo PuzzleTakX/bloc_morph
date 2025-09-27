@@ -1,6 +1,3 @@
-
-
-
 import 'package:bloc_morph/bloc_morph.dart';
 import 'package:example/bloc/model_wallpaper.dart';
 import 'package:example/bloc/my_bloc.dart';
@@ -15,7 +12,6 @@ class SampleApiPage extends StatefulWidget {
 }
 
 class _SampleApiPageState extends State<SampleApiPage> {
-
   @override
   void initState() {
     super.initState();
@@ -25,21 +21,24 @@ class _SampleApiPageState extends State<SampleApiPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Sample Api Page"),
+      appBar: AppBar(
+        title: Text("Sample Api Page"),
         actions: [
-          IconButton(onPressed: (){
-            context.read<MyBloc>().fetchWallpapers();
-          }, icon: Icon(Icons.refresh))
+          IconButton(
+            onPressed: () {
+              context.read<MyBloc>().fetchWallpapers();
+            },
+            icon: Icon(Icons.refresh),
+          ),
         ],
       ),
-      body: BlocMorph<MyBloc, MyState,DataLoadState>(
-        builder:(data) => _buildContent(data!.data ?? []),
+      body: BlocMorph<MyBloc, MyState, DataLoadState>(
+        builder: (data) => _buildContent(data!.data ?? []),
       ),
     );
   }
 
-
-  Widget _buildContent(List<DataWallPaper> data){
+  Widget _buildContent(List<DataWallPaper> data) {
     return GridView.builder(
       padding: const EdgeInsets.all(8.0),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -55,13 +54,14 @@ class _SampleApiPageState extends State<SampleApiPage> {
           clipBehavior: Clip.antiAlias,
           elevation: 4.0,
           child: Image.network(
-            wallpaper.imageUrl ?? 'https://via.placeholder.com/150', // Provide a placeholder if src is null
+            wallpaper.imageUrl ??
+                'https://via.placeholder.com/150', // Provide a placeholder if src is null
             fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
+            errorBuilder:
+                (context, error, stackTrace) => const Icon(Icons.error),
           ),
         );
       },
     );
   }
-
 }
