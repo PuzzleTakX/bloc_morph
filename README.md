@@ -34,7 +34,7 @@ Here is a visual comparison of different screens (square format):
 
 | Bad                                                                                                                          | Good                                                                                                                         |
 |------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
-| <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/1.png[demo_plugin.mp4](demo/demo_plugin.mp4)?raw=true" alt="Screen 1" width="300" height="300"> | <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/2.png?raw=true" alt="Screen 2" width="300" height="300"> |
+| <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/demo33.jpg?raw=true" alt="Screen 1" width="300" height="300"> | <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/2.png?raw=true" alt="Screen 2" width="300" height="300"> |
 | <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/3.png?raw=true" alt="Screen 3" width="300" height="300"> | <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/4.png?raw=true" alt="Screen 4" width="300" height="300"> |
 
 *Left column vs Right column comparison.*
