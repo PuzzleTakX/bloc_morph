@@ -26,6 +26,7 @@ class BlocMorph<B extends StateStreamable<S>, S extends MorphState, R>
     extends StatefulWidget {
   /// The builder function to render the UI when the state is [StatusState.next].
   final Widget Function(R? data)? builder;
+  final Widget Function(B bloc,R? data,StatusState statusState,int page)? paginationBuilder;
 
   /// The builder function to render the UI when the state is [StatusState.error].
   /// Provides the current bloc and error message for custom error handling.
@@ -35,10 +36,7 @@ class BlocMorph<B extends StateStreamable<S>, S extends MorphState, R>
   final Function(R data)? onNext;
 
   /// Callback invoked on any state change, providing the current [StatusState] and data.
-  final Function(StatusState typeState, R? data)? onState;
-
-  /// Whether to enable pagination mode. If `true`, the widget renders differently based on [StatusState.next].
-  final bool pagination;
+  final Function(StatusState typeState, R data)? onState;
 
   /// Whether to disable animations for state transitions. Defaults to `false`.
   final bool disableAnimation;
@@ -58,11 +56,10 @@ class BlocMorph<B extends StateStreamable<S>, S extends MorphState, R>
   /// Custom widget to display when the state is [StatusState.networkError].
   final Widget Function(B bloc)? networkError;
 
-  /// A static child widget to display regardless of state (used when [pagination] is `false`).
   final Widget? child;
 
   /// Key to match states with the widget's request. Defaults to "public_key".
-  final String requestKey;
+  final String? requestKey;
 
   // Customization parameters
   /// Duration of the animation when switching states.
@@ -155,6 +152,18 @@ class BlocMorph<B extends StateStreamable<S>, S extends MorphState, R>
   /// Whether to enable scale animation for state transitions. Defaults to `true`.
   final bool? enableScale;
 
+  /// The BLoC instance that this widget will interact with.
+  /// This is typically provided by a `BlocProvider` higher up in the widget tree.
+  final B? bloc;
+
+  /// The current state of the BLoC.
+  final S? state;
+
+  /// The data associated with the current state.
+  final R? data;
+
+  final bool? streaming;
+
   /// Whether to enable fade animation for state transitions. Defaults to `true`.
   ///
   /// If `false`, no fade animation will be applied during state transitions.
@@ -165,8 +174,11 @@ class BlocMorph<B extends StateStreamable<S>, S extends MorphState, R>
     this.builder,
     this.errorBuilder,
     this.onNext,
+    this.bloc,
+    this.streaming = true,
+    this.state,
+    this.data,
     this.onState,
-    this.pagination = false,
     this.disableAnimation = false,
     this.loading,
     this.empty,
@@ -176,7 +188,7 @@ class BlocMorph<B extends StateStreamable<S>, S extends MorphState, R>
     this.initial,
     this.networkError,
     this.child,
-    this.requestKey = "public_key",
+    this.requestKey,
     this.animationDuration = const Duration(milliseconds: 400),
     this.reverseAnimationDuration = const Duration(milliseconds: 200),
     this.switchInCurve = Curves.easeInOutCubic,
@@ -203,7 +215,7 @@ class BlocMorph<B extends StateStreamable<S>, S extends MorphState, R>
     this.errorPadding,
     this.errorIconSize,
     this.stateBuilders,
-    this.noDataStateBuilders,
+    this.noDataStateBuilders, this.paginationBuilder,
   });
 
   @override
@@ -215,22 +227,38 @@ enum PlatformStyle { material, cupertino }
 class _BlocMorphState<B extends StateStreamable<S>, S extends MorphState, R>
     extends State<BlocMorph<B, S, R>> {
   R? data;
+  int page = 1;
   StatusState statusState = StatusState.loading;
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<B, S>(
       listener: (context, state) {
+        if (widget.streaming == false) return;
         if (state is! R) return;
         final stateKey = (state as dynamic).requestKey as String?;
-        if (stateKey == widget.requestKey || stateKey == null) {
+        if(widget.paginationBuilder != null){
+          page = (state as dynamic).page as int;
+        }
+        if ( widget.requestKey != null) {
+        if (stateKey == widget.requestKey) {
           if (data != state && mounted) {
             setState(() {
               data = state as R?;
               statusState = state.statusState;
               widget.onNext?.call(state as R);
             });
-            widget.onState?.call(statusState, data);
+            widget.onState?.call(statusState,  data as R);
+          }
+        }
+        }else{
+          if (data != state && mounted) {
+            setState(() {
+              data = state as R?;
+              statusState = state.statusState;
+              widget.onNext?.call(state as R);
+            });
+            widget.onState?.call(statusState, data as R);
           }
         }
       },
@@ -241,13 +269,13 @@ class _BlocMorphState<B extends StateStreamable<S>, S extends MorphState, R>
   Widget _buildContent(BuildContext context) {
     final bloc = context.read<B>();
     Widget content;
-
-    // Check custom state builders
     if (widget.stateBuilders?.containsKey(statusState) ?? false) {
       content = widget.stateBuilders![statusState]!(data, bloc);
     } else if (widget.noDataStateBuilders?.containsKey(statusState) ?? false) {
       content = widget.noDataStateBuilders![statusState]!(bloc);
-    } else if (!widget.pagination && widget.child != null) {
+    } else if (widget.paginationBuilder != null) {
+      content = _buildStateWidgetWithPagination(bloc);
+    } else if (widget.child != null) {
       content = widget.child!;
     } else {
       content = _buildStateWidget(bloc);
@@ -314,56 +342,135 @@ class _BlocMorphState<B extends StateStreamable<S>, S extends MorphState, R>
         return widget.builder != null
             ? widget.builder!(data)
             : _buildDefaultWidget(
-                label: 'Success state',
-                message: 'Operation successful',
-                icon: Icons.check_circle_outline,
-                color: Theme.of(context).colorScheme.secondary,
-              );
+          label: 'Success state',
+          message: 'Operation successful',
+          icon: Icons.check_circle_outline,
+          color: Theme.of(context).colorScheme.secondary,
+        );
       case StatusState.empty:
         return widget.empty ?? _buildEmptyWidget();
       case StatusState.error:
         return widget.errorBuilder != null
             ? widget.errorBuilder!(bloc, (data as MorphState?)?.error ?? '')
             : _buildErrorWidget(
-                bloc,
-                widget.errorMessage ?? 'An error occurred while fetching data.',
-                widget.errorIcon,
-                widget.errorColor,
-                widget.errorTextStyle);
+            bloc,
+            widget.errorMessage ?? 'An error occurred while fetching data.',
+            widget.errorIcon,
+            widget.errorColor,
+            widget.errorTextStyle);
       case StatusState.networkError:
         return widget.networkError != null
             ? widget.networkError!(bloc)
             : _buildErrorWidget(
-                bloc,
-                widget.networkErrorMessage ?? 'No internet connection.',
-                widget.networkErrorIcon ?? CupertinoIcons.wifi_exclamationmark,
-                widget.networkErrorColor,
-                widget.errorTextStyle);
+            bloc,
+            widget.networkErrorMessage ?? 'No internet connection.',
+            widget.networkErrorIcon ?? CupertinoIcons.wifi_exclamationmark,
+            widget.networkErrorColor,
+            widget.errorTextStyle);
       case StatusState.refreshing:
         return widget.builder != null
             ? Stack(
-                children: [
-                  widget.builder!(data),
-                  Positioned.fill(
-                    child: Container(
-                      color: Colors.black.withAlpha(20),
-                      child: Center(
-                          child: widget.loading ?? _buildLoadingWidget()),
-                    ),
-                  ),
-                ],
-              )
+          children: [
+            widget.builder!(data),
+            Positioned.fill(
+              child: Container(
+                color: Colors.black.withAlpha(20),
+                child: Center(
+                    child: widget.loading ?? _buildLoadingWidget()),
+              ),
+            ),
+          ],
+        )
             : widget.loading ?? _buildLoadingWidget();
       case StatusState.loadingMore:
       case StatusState.noMoreData:
         return widget.builder != null
             ? widget.builder!(data)
             : _buildDefaultWidget(
-                label: 'No more data',
-                message: 'No more data to load.',
-                icon: Icons.inbox_outlined,
-                color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
-              );
+          label: 'No more data',
+          message: 'No more data to load.',
+          icon: Icons.inbox_outlined,
+          color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
+        );
+      case StatusState.unknown:
+        return _buildDefaultWidget(
+          label: 'Unknown state',
+          message: 'An unknown state occurred.',
+          icon: Icons.help_outline,
+          color: Theme.of(context).colorScheme.error,
+        );
+    }
+  }
+
+  Widget _buildStateWidgetWithPagination(B bloc) {
+    if(page != 1) return widget.paginationBuilder!(bloc,data,statusState,page);
+    switch (statusState) {
+      case StatusState.init:
+        return widget.initial ??
+            _buildDefaultWidget(
+              label: 'Initial state',
+              message: widget.initMessage ?? 'Starting to load...',
+              textStyle: widget.initTextStyle,
+              icon: Icons.hourglass_empty,
+              color: Theme.of(context).colorScheme.primary,
+            );
+      case StatusState.loading:
+        return widget.loading ?? _buildLoadingWidget();
+      case StatusState.next:
+      case StatusState.success:
+        return widget.paginationBuilder != null
+            ?  widget.paginationBuilder!(bloc,data,statusState,page)
+            : _buildDefaultWidget(
+          label: 'Success state',
+          message: 'Operation successful',
+          icon: Icons.check_circle_outline,
+          color: Theme.of(context).colorScheme.secondary,
+        );
+      case StatusState.empty:
+        return widget.empty ?? _buildEmptyWidget();
+      case StatusState.error:
+        return widget.errorBuilder != null
+            ? widget.errorBuilder!(bloc, (data as MorphState?)?.error ?? '')
+            : _buildErrorWidget(
+            bloc,
+            widget.errorMessage ?? 'An error occurred while fetching data.',
+            widget.errorIcon,
+            widget.errorColor,
+            widget.errorTextStyle);
+      case StatusState.networkError:
+        return widget.networkError != null
+            ? widget.networkError!(bloc)
+            : _buildErrorWidget(
+            bloc,
+            widget.networkErrorMessage ?? 'No internet connection.',
+            widget.networkErrorIcon ?? CupertinoIcons.wifi_exclamationmark,
+            widget.networkErrorColor,
+            widget.errorTextStyle);
+      case StatusState.refreshing:
+        return widget.builder != null
+            ? Stack(
+          children: [
+            widget.builder!(data),
+            Positioned.fill(
+              child: Container(
+                color: Colors.black.withAlpha(20),
+                child: Center(
+                    child: widget.loading ?? _buildLoadingWidget()),
+              ),
+            ),
+          ],
+        )
+            : widget.loading ?? _buildLoadingWidget();
+      case StatusState.loadingMore:
+      case StatusState.noMoreData:
+        return widget.builder != null
+            ? widget.builder!(data)
+            : _buildDefaultWidget(
+          label: 'No more data',
+          message: 'No more data to load.',
+          icon: Icons.inbox_outlined,
+          color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
+        );
       case StatusState.unknown:
         return _buildDefaultWidget(
           label: 'Unknown state',

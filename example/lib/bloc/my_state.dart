@@ -10,12 +10,10 @@ class DataInitial implements MyState {
   final StatusState statusState;
   @override
   final String? error;
-  final List<ImageItem>? data;
   DataInitial({
     this.requestKey = "public_key",
     this.statusState = StatusState.init,
     this.error,
-    this.data,
   });
 }
 
@@ -26,12 +24,32 @@ class DataLoadState implements MyState {
   final StatusState statusState;
   @override
   final String? error;
-  final List<ImageItem>? data;
+  final List<DataWallPaper>? data;
 
   DataLoadState({
-    this.requestKey = "public_key",
+    this.requestKey,
     required this.statusState,
     this.error,
+    this.data,
+  });
+}
+class DataLoadStatePage implements MyState {
+  @override
+  final String? requestKey;
+  @override
+  final StatusState statusState;
+  @override
+  final String? error;
+
+  final int page; /// This is completely mandatory
+
+  final List<DataWallPaper>? data;
+
+  DataLoadStatePage({
+    this.requestKey,
+    required this.statusState,
+    this.error,
+    required this.page,
     this.data,
   });
 }
