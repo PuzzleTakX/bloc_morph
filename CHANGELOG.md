@@ -17,7 +17,7 @@ A powerful and flexible Flutter package for managing UI states with the Bloc pat
 # Changelog
 
 
-## [0.3.3+3] - 2024-09-27 
+## [0.3.3+4] - 2024-09-27 
 - **Feature**: Added `paginationLoadingBuilder`, `paginationErrorBuilder`, and `paginationEmptyBuilder` to allow custom widgets for pagination states. This provides greater flexibility in customizing the UI for different pagination scenarios.
 - **Fix**: Resolved an issue where `networkErrorWidget` and `errorWidget` were not displayed when pagination was disabled. This ensures that the appropriate error widgets are shown regardless of the pagination state.
 - **Fix**: Corrected the logic in `BlocMorph` to ensure that `loadingWidget` is displayed correctly during initial loading and pagination. Previously, the loading widget might not have been shown consistently in all loading scenarios.
