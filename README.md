@@ -21,9 +21,7 @@ A powerful and flexible Flutter package for managing UI states with the Bloc pat
 Watch a short demo of `BlocMorph` in action:
 
 <div align="center">
-  <a href="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/demo_plugin.mp4">
-    <img src="https://github.com/PuzzleTakX/bloc_morph/blob/master/demo/img.png" alt="BlocMorph Demo Video" width="600"/>
-  </a>
+    <a href="https://www.youtube.com/watch?v=BLJ52OshzyE"><img src="http://i3.ytimg.com/vi/BLJ52OshzyE/hqdefault.jpg" alt="BlocMorph Demo Video" width="600"></a>
 </div>
 
 
@@ -76,7 +74,7 @@ Add `bloc_morph` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  bloc_morph: ^0.3.3+4
+  bloc_morph: ^0.3.4+5
 ```
 
 Then, run:
