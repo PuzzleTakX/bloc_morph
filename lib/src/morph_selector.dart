@@ -26,7 +26,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class MorphSelector<B extends StateStreamable<S>, S, T> extends StatefulWidget {
   /// Builder function that receives the Bloc, the full state,
   /// and the selected value of type [T].
-  final Widget Function(BuildContext context, B bloc, S state, T selected) builder;
+  final Widget Function(BuildContext context, B bloc, S state, T selected)
+      builder;
 
   /// Optional initial value to display before any state of type [T] is emitted.
   final T? initial;
@@ -77,9 +78,11 @@ class _MorphSelectorState<B extends StateStreamable<S>, S, T>
       child: Builder(
         builder: (context) {
           if (lastSelected != null && lastState != null) {
-            return widget.builder(context, bloc, lastState as S, lastSelected as T);
+            return widget.builder(
+                context, bloc, lastState as S, lastSelected as T);
           }
-          return widget.placeholder ?? const Center(child: CircularProgressIndicator());
+          return widget.placeholder ??
+              const Center(child: CircularProgressIndicator());
         },
       ),
     );
