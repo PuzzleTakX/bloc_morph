@@ -17,6 +17,20 @@ A powerful and flexible Flutter package for managing UI states with the Bloc pat
 # Changelog
 
 
+## [0.3.6] - 2024-10-07
+- **Feature**: Added `MorphSelector` widget (generic `<T>`):
+    - Rebuilds **only** when a state of type `<T>` is emitted from a Bloc.
+    - Optional `initial` value to display before receiving a state.
+    - Optional `placeholder` widget for displaying loading/fallback UI before `<T>` state arrives.
+    - Fully generic and reusable for package-level usage.
+- **Feature**: Added `MorphSelectorMultiple` widget:
+    - Supports listening to multiple state types or selected values.
+    - Rebuilds only when any of the tracked values changes.
+    - Optional `initial` and `placeholder` support.
+    - Ideal for complex Blocs with multiple relevant states.
+- **Docs**: Added English documentation and examples for `MorphSelector` and `MorphSelectorMultiple`.
+
+
 ## [0.3.3+4] - 2024-09-27 
 - **Feature**: Added `paginationLoadingBuilder`, `paginationErrorBuilder`, and `paginationEmptyBuilder` to allow custom widgets for pagination states. This provides greater flexibility in customizing the UI for different pagination scenarios.
 - **Fix**: Resolved an issue where `networkErrorWidget` and `errorWidget` were not displayed when pagination was disabled. This ensures that the appropriate error widgets are shown regardless of the pagination state.

@@ -16,6 +16,68 @@ A powerful and flexible Flutter package for managing UI states with the Bloc pat
 
 [BlocMorph Plugin on JetBrains Marketplace](https://plugins.jetbrains.com/plugin/28557-blocmorph)
 
+
+
+## 🚀 New Feature: `MorphSelector` and `MorphSelectorMultiple`
+
+### MorphSelector
+
+`MorphSelector` is a **lightweight and powerful Flutter widget** designed to simplify UI updates in Bloc-based applications. Unlike `BlocMorph`, it does **not handle separate UI states** like loading, error, or empty. Instead, it focuses purely on **reacting to relevant state changes** and rebuilding the widget tree efficiently.
+
+Key features:
+- **Generic `<T>` type:** Only rebuilds when a state of type `<T>` is emitted.
+- **Optional `initial` value:** Provides a default value before the first state arrives.
+- **Optional `placeholder`:** Display a fallback UI (like a loader or empty message) until the relevant state is available.
+- **Optimized for performance:** Ignores irrelevant state changes, preventing unnecessary rebuilds.
+- **Easy to integrate:** Works seamlessly with `Bloc` or `Cubit`.
+
+**Example usage:**
+
+```dart
+MorphSelector<MyBloc, MyState, StateData>(
+    initial: StateData([]), // Optional initial value
+    placeholder: const Center(child: Text('Waiting for data...')), // Optional loading/fallback
+    builder: (context, bloc, state, data) {
+      return ListView(
+         children: data.items.map((e) => ListTile(title: Text(e))).toList(),
+      );
+    },
+)
+```
+Perfect for listening to a specific state and updating only the part of the UI that depends on it, ignoring other intermediate states like loading or errors.
+
+### MorphSelectorMultiple
+
+`MorphSelectorMultiple` is an advanced version of `MorphSelector`, designed for scenarios where your UI depends on multiple states or multiple Blocs/Cubits.
+
+Key features:
+- **Track multiple state types or selected values**: Rebuild the UI when any relevant state changes.
+- **Optional initial value**: Set a default before receiving the first relevant state.
+- **Optional placeholder**: Display fallback UI until the relevant state is emitted.
+- **Efficient rebuilds**: Ignores irrelevant state changes, keeping your app responsive and fast.
+- **Perfect for complex UIs**: Use when multiple sources of data need to be displayed in a single widget.
+
+**Example usage:**
+
+```dart
+MorphSelectorMultiple<MyBloc, MyState>(
+  builderState: (state) => state is StateData, // Only rebuild for StateData
+  builder: (context, bloc, state) {
+    if (state is StateData) {
+      return ListView(
+        children: state.items.map((e) => ListTile(title: Text(e))).toList(),
+      );
+    }
+    return const Center(child: CircularProgressIndicator());
+  },
+)
+
+```
+
+
+
+
+
 ## Demo Video
 
 Watch a short demo of `BlocMorph` in action:
@@ -23,6 +85,8 @@ Watch a short demo of `BlocMorph` in action:
 <div align="center">
     <a href="https://www.youtube.com/watch?v=BLJ52OshzyE"><img src="http://i3.ytimg.com/vi/BLJ52OshzyE/hqdefault.jpg" alt="BlocMorph Demo Video" width="600"></a>
 </div>
+
+
 
 
 
@@ -74,7 +138,7 @@ Add `bloc_morph` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  bloc_morph: ^0.3.4+5
+  bloc_morph: ^0.3.5+6
 ```
 
 Then, run:
