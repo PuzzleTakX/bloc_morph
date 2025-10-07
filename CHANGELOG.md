@@ -17,7 +17,7 @@ A powerful and flexible Flutter package for managing UI states with the Bloc pat
 # Changelog
 
 
-## [0.3.6] - 2024-10-07
+## [0.3.7+8] - 2024-10-07
 - **Feature**: Added `MorphSelector` widget (generic `<T>`):
     - Rebuilds **only** when a state of type `<T>` is emitted from a Bloc.
     - Optional `initial` value to display before receiving a state.

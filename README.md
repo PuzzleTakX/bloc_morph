@@ -138,7 +138,7 @@ Add `bloc_morph` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  bloc_morph: ^0.3.6+7
+  bloc_morph: ^0.3.7+8
 ```
 
 Then, run:
